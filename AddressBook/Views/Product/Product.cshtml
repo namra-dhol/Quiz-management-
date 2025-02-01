@@ -1,0 +1,71 @@
+﻿@model Product
+
+<main id="main" class="main">
+    @using (Html.BeginForm("Product", "Product", FormMethod.Post, new { id = "productForm" }))
+    {
+        <div class="form-group">
+            @Html.LabelFor(model => model.productID)
+            @Html.TextBoxFor(model => model.productID, new { @class = "form-control", id = "productID" })
+            <span class="text-danger" id="productIDError"></span>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.productName)
+            @Html.TextBoxFor(model => model.productName, new { @class = "form-control", id = "productName" })
+            <span class="text-danger" id="productNameError"></span>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.price)
+            @Html.TextBoxFor(model => model.price, new { @class = "form-control", type = "number", step = "0.01", id = "price" })
+            <span class="text-danger" id="priceError"></span>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.category)
+            @Html.TextBoxFor(model => model.category, new { @class = "form-control", id = "category" })
+            <span class="text-danger" id="categoryError"></span>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.rating)
+            @Html.TextBoxFor(model => model.rating, new { @class = "form-control", type = "number", min = "1", max = "5", id = "rating" })
+            <span class="text-danger" id="ratingError"></span>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.productCompany)
+            @Html.TextBoxFor(model => model.productCompany, new { @class = "form-control", id = "productCompany" })
+            <span class="text-danger" id="productCompanyError"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    }
+</main>
+
+<script>
+    document.getElementById("productForm").addEventListener("submit", function(event) {
+        let isValid = true;
+
+        function validateField(id, errorId) {
+            let value = document.getElementById(id).value.trim();
+            if (value === "") {
+                document.getElementById(errorId).innerText = "This field is required.";
+                isValid = false;
+            } else {
+                document.getElementById(errorId).innerText = "";
+            }
+        }
+
+        validateField("productID", "productIDError");
+        validateField("productName", "productNameError");
+        validateField("price", "priceError");
+        validateField("category", "categoryError");
+        validateField("rating", "ratingError");
+        validateField("productCompany", "productCompanyError");
+
+        if (!isValid) {
+            event.preventDefault();
+        }
+    });
+</script>
