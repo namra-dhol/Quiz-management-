@@ -1,3 +1,38 @@
-﻿﻿<main id="main" class="main">
-	<h1>hello</h1>
+﻿<main id="main" class="main">
+    <div class="container-fluid">
+        <h2>Country Form</h2>
+        <form>
+            <!-- Country ID (Auto-increment, Primary Key) -->
+            <div class="mb-3">
+                <label for="countryID" class="form-label">Country ID</label>
+                <input type="number" class="form-control" id="countryID" name="countryID" disabled>
+            </div>
+
+            <!-- Country Name (Unique Key, Not Null) -->
+            <div class="mb-3">
+                <label for="countryName" class="form-label">Country Name</label>
+                <input type="text" class="form-control" id="countryName" name="countryName" required>
+            </div>
+
+            <!-- Country Code (Not Null) -->
+            <div class="mb-3">
+                <label for="countryCode" class="form-label">Country Code</label>
+                <input type="text" class="form-control" id="countryCode" name="countryCode" required>
+            </div>
+
+            <!-- Creation Date (Default Value: GetDate()) -->
+            <div class="mb-3">
+                <label for="creationDate" class="form-label">Creation Date</label>
+                <input type="datetime-local" class="form-control" id="creationDate" name="creationDate" value="">
+            </div>
+
+            <!-- User ID (Foreign Key, Not Null) -->
+            <div class="mb-3">
+                <label for="userID" class="form-label">User ID</label>
+                <input type="number" class="form-control" id="userID" name="userID" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
 </main>

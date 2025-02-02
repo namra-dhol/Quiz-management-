@@ -1,14 +1,34 @@
 ﻿<main id="main" class="main">
-	<h1>fghb</h1>
-	<h1>fghb</h1>
-	<h1>fghb</h1>
-	<h1>fghb</h1>
-	<h1>fghb</h1>
-	<h1>fghb</h1>
-	<h1>fghb</h1>
-	<h1>fghb</h1>
-	<h1>fghb</h1>
-	<h1>fghb</h1>
-	<h1>fghb</h1>
-	<h1>fghb</h1>
+    <div class="container-fluid">
+        <h2 class="mb-4">User Registration</h2>
+        <form>
+
+
+            <!-- UserName -->
+            <div class="mb-3">
+                <label for="userName" class="form-label">User Name</label>
+                <input type="text" class="form-control" id="userName" name="userName" required>
+            </div>
+
+            <!-- MobileNo -->
+            <div class="mb-3">
+                <label for="mobileNo" class="form-label">Mobile No</label>
+                <input type="text" class="form-control" id="mobileNo" name="mobileNo" required>
+            </div>
+
+            <!-- EmailID -->
+            <div class="mb-3">
+                <label for="emailID" class="form-label">Email ID</label>
+                <input type="email" class="form-control" id="emailID" name="emailID" required>
+            </div>
+
+            <!-- CreationDate (Default to current date) -->
+            <div class="mb-3">
+                <label for="creationDate" class="form-label">Creation Date</label>
+                <input type="datetime-local" class="form-control" id="creationDate" name="creationDate" value="" readonly>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
 </main>
