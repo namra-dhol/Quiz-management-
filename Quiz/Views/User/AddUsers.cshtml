@@ -1,0 +1,46 @@
+﻿<main id="main" class="main">
+    <div class="container mt-4">
+        <div class="card m-2">
+            <div class="card-body">
+                <nav aria-label="breadcrumb" class="m-3">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">User</li>
+                        <li class="breadcrumb-item active">User Add</li>
+                    </ol>
+                </nav>
+
+                <h5 class="card-title mb-4">User Add/Edit</h5>
+
+                <form>
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="modified" class="form-label">Modified</label>
+                        <input type="date" class="form-control" id="modified" readonly>
+                    </div>
+
+                    <div class="mt-4">
+                        <button type="submit" class="btn btn-success me-2">Save</button>
+                        <button type="button" class="btn btn-danger">Reset</button>
+                        <a class="btn btn-warning ms-1" asp-area="" asp-controller="User" asp-action="UserList">
+                            Back
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>

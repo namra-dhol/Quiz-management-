@@ -1,0 +1,84 @@
+﻿<main id="main" class="main">
+    <div class="container mt-4">
+        <div class="card">
+            <div class="card-body">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb m-3">
+                        <li class="breadcrumb-item">Question</li>
+                        <li class="breadcrumb-item active">Question Add</li>
+                    </ol>
+                </nav>
+
+                <h5 class="card-title mb-4">Question Add/Edit</h5>
+
+                <form>
+                    <div class="mb-3">
+                        <label for="questionText" class="form-label">Question Text</label>
+                        <textarea class="form-control" id="questionText" rows="3" required></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="questionLevel" class="form-label">Question Level</label>
+                        <select class="form-select" id="questionLevel" required>
+                            <option value="">Select Level</option>
+                            <option value="1">Beginner</option>
+                            <option value="2">Intermediate</option>
+                            <option value="3">Advanced</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="optionA" class="form-label">Option A</label>
+                        <input type="text" class="form-control" id="optionA" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="optionB" class="form-label">Option B</label>
+                        <input type="text" class="form-control" id="optionB" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="optionC" class="form-label">Option C</label>
+                        <input type="text" class="form-control" id="optionC" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="optionD" class="form-label">Option D</label>
+                        <input type="text" class="form-control" id="optionD" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="correctOption" class="form-label">Correct Option</label>
+                        <select class="form-select" id="correctOption" required>
+                            <option value="">Select Correct Option</option>
+                            <option value="A">Option A</option>
+                            <option value="B">Option B</option>
+                            <option value="C">Option C</option>
+                            <option value="D">Option D</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="questionMarks" class="form-label">Question Marks</label>
+                        <input type="number" class="form-control" id="questionMarks" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="isActive" checked>
+                            <label class="form-check-label" for="isActive">
+                                Is Active
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-success me-2">Save</button>
+                    <button type="button" class="btn btn-danger">Reset</button>
+                    <a class="btn btn-warning ms-1" asp-controller="Question" asp-action="QuestionList">
+                        Back
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>

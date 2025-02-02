@@ -1,0 +1,34 @@
+﻿<main id="main" class="main">
+    <div class="container mt-4">
+        <div class="card">
+            <div class="card-body">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb m-3">
+                        <li class="breadcrumb-item">Question Level</li>
+                        <li class="breadcrumb-item active">Question Level Add</li>
+                    </ol>
+                </nav>
+
+                <h5 class="card-title mb-4">Question Level Add/Edit</h5>
+
+                <form>
+                    <div class="mb-3">
+                        <label for="questionLevel" class="form-label">Question Level</label>
+                        <input type="text" class="form-control" id="questionLevel" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="userId" class="form-label">User ID</label>
+                        <input type="text" class="form-control" id="userId" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-success me-2">Save</button>
+                    <button type="button" class="btn btn-danger">Reset</button>
+                    <a class="btn btn-warning ms-1" asp-controller="QuestionLevel" asp-action="QuestionLevelList">
+                        Back
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
