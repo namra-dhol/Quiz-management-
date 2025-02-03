@@ -94,22 +94,20 @@
                             <th>QuizName</th>
                             <th>TotalQuestions</th>
                             <th>QuizDate</th>
-                            <th>ProductCode</th>
-                            <th>Description</th>
                             <th>UserName</th>
+                            <th>modified</th>
+                           
                         </tr>
                     </thead>
                     <tbody>
-                       @foreach (DataRow row in Model.Rows)
-                       { 
+                       @foreach (DataRow row in Model.Rows){ 
                            <tr>
                             <td>@row["QuizName"]</td>
-                            <td>row["TotalQuestions"]</td>
-                            <td>row["QuizDate"]</td>
-                            <td>row["productcode"]</td>
-                            <td>row["UserID"]</td>
-                            <td>row["modified"]</td>
-                        </tr> 
+                            <td>@row["TotalQuestions"]</td>
+                             <td>@row["QuizDate"]</td> 
+                                <td>@row["UserName"]</td>
+                            <td>@row["modified"]</td>
+                           </tr> 
                        }
                    </tbody> 
                </table>
