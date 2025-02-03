@@ -1,6 +1,5 @@
-﻿@model Quiz.Models.QuizModel
+﻿@model DataTable
 @using System.Data
-
 
 <main id="main" class="main">
     <div class="container-fluid">
@@ -92,28 +91,28 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>ProductID</th>
-                            <th>ProductName</th>
-                            <th>ProductPrice</th>
+                            <th>QuizName</th>
+                            <th>TotalQuestions</th>
+                            <th>QuizDate</th>
                             <th>ProductCode</th>
                             <th>Description</th>
                             <th>UserName</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (DataRow row in QuizModel.Rows)
-                        {
-                            <tr>
-                                <td>@row["ProductID"]</td>
-                                <td>@row["ProductName"]</td>
-                                <td>@row["ProductPrice"]</td>
-                                <td>@row["ProductCode"]</td>
-                                <td>@row["Description"]</td>
-                                <td>@row["UserName"]</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+                       @foreach (DataRow row in Model.Rows)
+                       { 
+                           <tr>
+                            <td>@row["QuizName"]</td>
+                            <td>row["TotalQuestions"]</td>
+                            <td>row["QuizDate"]</td>
+                            <td>row["productcode"]</td>
+                            <td>row["UserID"]</td>
+                            <td>row["modified"]</td>
+                        </tr> 
+                       }
+                   </tbody> 
+               </table>
                 
                 
                 

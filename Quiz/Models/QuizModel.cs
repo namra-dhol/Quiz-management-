@@ -11,7 +11,7 @@ namespace Quiz.Models
         public string QuizName { get; set; }
 
         [Required]
-        public int TotalQuestions { get; set; }
+        public string TotalQuestions { get; set; }
 
         [Required]
         public DateTime QuizDate { get; set; }

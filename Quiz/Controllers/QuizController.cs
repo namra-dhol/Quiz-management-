@@ -23,7 +23,7 @@ namespace Quiz.Controllers
                 using (SqlCommand command = connection.CreateCommand())
                 {
                     command.CommandType = CommandType.StoredProcedure;
-                    command.CommandText = "PR_Product_SelectAll";
+                    command.CommandText = "PR_MST_Quiz_SelectAll";
 
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
