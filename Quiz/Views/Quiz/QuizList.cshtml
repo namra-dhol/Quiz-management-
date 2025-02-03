@@ -1,4 +1,8 @@
-﻿<main id="main" class="main">
+﻿@model Quiz.Models.QuizModel
+@using System.Data
+
+
+<main id="main" class="main">
     <div class="container-fluid">
         <!-- Search Section -->
         <div class="card mb-4">
@@ -84,6 +88,43 @@
                     </table>
                 </div>
 
+              
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ProductID</th>
+                            <th>ProductName</th>
+                            <th>ProductPrice</th>
+                            <th>ProductCode</th>
+                            <th>Description</th>
+                            <th>UserName</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (DataRow row in QuizModel.Rows)
+                        {
+                            <tr>
+                                <td>@row["ProductID"]</td>
+                                <td>@row["ProductName"]</td>
+                                <td>@row["ProductPrice"]</td>
+                                <td>@row["ProductCode"]</td>
+                                <td>@row["Description"]</td>
+                                <td>@row["UserName"]</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
                 <div class="d-flex justify-content-between align-items-center">
                     <div>Showing 1 to 3 of 3 entries</div>
                     <nav>
