@@ -40,7 +40,7 @@
     <header id="header" class="header fixed-top d-flex align-items-center">
 
         <div class="d-flex align-items-center justify-content-between">
-            <a href="index.html" class="logo d-flex align-items-center">
+            <a asp-controller="Home" asp-action="Index" class="logo d-flex align-items-center">
                 <img src="~/assets/img/logo.png" alt="">
                 <span class="d-none d-lg-block">Quiz</span>
             </a>
@@ -208,12 +208,12 @@
 
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                         <img src="~/assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-                        <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+                        <span class="d-none d-md-block dropdown-toggle ps-2">Namra Dhol</span>
                     </a><!-- End Profile Iamge Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
-                            <h6>Kevin Anderson</h6>
+                            <h6>Namra Dhol</h6>
                             <span>Web Designer</span>
                         </li>
                         <li>
@@ -275,6 +275,24 @@
             </a>
 
             <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#User-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-people"></i><span>User</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="User-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a asp-area="" asp-controller="User" asp-action="UserList">
+                            <i class="bi bi-circle"></i><span>User List</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="User" asp-action="AddUser">
+                            <i class="bi bi-circle"></i><span>Add User</span>
+                        </a>
+                    </li>
+                </ul>
+            </li><!-- End User Nav -->
+
+            <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#Quiz-nav" data-bs-toggle="collapse" href="#">
                     <i class="bi bi-menu-button-wide"></i><span>Quiz</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
@@ -285,12 +303,31 @@
                         </a>
                     </li>
                     <li>
-                        <a asp-area="" asp-controller="Quiz" asp-action="AddQuiz">
+                        <a asp-area="" asp-controller="Quiz" asp-action="AddEditQuiz">
                             <i class="bi bi-circle"></i><span>Add Quiz</span>
                         </a>
                     </li>
                 </ul>
             </li><!-- End Quiz Nav -->
+
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#QuestionLevel-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-journal-text"></i><span>QuestionLevel</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="QuestionLevel-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a asp-area="" asp-controller="QuestionLevel" asp-action="QuestionLevelList">
+                            <i class="bi bi-circle"></i><span>QuestionLevel List</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="QuestionLevel" asp-action="AddQuestionLevel">
+                            <i class="bi bi-circle"></i><span>Add QuestionLevel</span>
+                        </a>
+                    </li>
+                </ul>
+            </li><!-- End QuestionLevel Nav -->
 
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#Question-nav" data-bs-toggle="collapse" href="#">
@@ -310,27 +347,11 @@
                 </ul>
             </li><!-- End Qestion Nav -->
 
-            <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#QuestionLevel-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-bar-chart"></i><span>QuestionLevel</span><i class="bi bi-chevron-down ms-auto"></i>
-                </a>
-                <ul id="QuestionLevel-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                    <li>
-                        <a asp-area="" asp-controller="QuestionLevel" asp-action="QuestionLevelList">
-                            <i class="bi bi-circle"></i><span>QuestionLevel List</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a asp-area="" asp-controller="QuestionLevel" asp-action="AddQuestionLevel">
-                            <i class="bi bi-circle"></i><span>Add QuestionLevel</span>
-                        </a>
-                    </li>
-                </ul>
-            </li><!-- End QuestionLevel Nav -->
+           
 
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#QuizWiseQuestion-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-layout-text-window-reverse"></i><span>QuizWiseQuestion</span><i class="bi bi-chevron-down ms-auto"></i>
+                    <i class="bi bi-journal-text"></i><span>QuizWiseQuestion</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="QuizWiseQuestion-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
@@ -346,24 +367,15 @@
                 </ul>
             </li><!-- End QuizWiseQuestion Nav -->
 
+
+
             <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#User-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-people"></i><span>User</span><i class="bi bi-chevron-down ms-auto"></i>
+                <a class="nav-link collapsed" asp-controller="Login" asp-action="SignIn">
+                    <i class="bi bi-box-arrow-in-right"></i>
+                    <span>Login</span>
                 </a>
-                <ul id="User-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                    <li>
-                        <a asp-area="" asp-controller="User" asp-action="UserList">
-                            <i class="bi bi-circle"></i><span>User List</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a asp-area="" asp-controller="User" asp-action="AddUser">
-                            <i class="bi bi-circle"></i><span>Add User</span>
-                        </a>
-                    </li>
-                </ul>
-            </li><!-- End User Nav -->
-          
+            </li><!-- End Login Page Nav -->
+
           
         </ul>
 
@@ -400,6 +412,15 @@
     <!-- Template Main JS File -->
     <script src="~/assets/js/main.js"></script>
 
+    <!-- Template Main JS File -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+
 </body>
 </html>

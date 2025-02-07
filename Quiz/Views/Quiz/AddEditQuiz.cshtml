@@ -1,0 +1,66 @@
+﻿@model Quiz.Models.QuizModel
+
+<main id="main" class="main">
+    <div class="container mt-4">
+        <div class="card">
+            <div class="card-body">
+                <nav aria-label="breadcrumb" class="m-3">
+                    <ol class="breadcrumb">
+                        <a asp-controller="Quiz" asp-action="QuizList" class="breadcrumb-item">Quiz</a>
+                        <li class="breadcrumb-item active">Quiz Add</li>
+                    </ol>
+                </nav>
+
+                <h5 class="card-title mb-4">Quiz Add/Edit</h5>
+
+                <form asp-controller="Quiz" asp-action="QuizSave" method="post">
+
+                    <div class="form-group">
+                        <span class="text-danger">*</span>
+                        <label asp-for="QuizName" class="form-label"> QuizName </label>
+                        <input asp-for="QuizName" class="form-control" />
+                        <span asp-validation-for="QuizName" class="text-danger"></span>
+                    </div>
+
+                    <!-- Country Name (Unique Key, Not Null) -->
+                    <div class="form-group">
+                        <span class="text-danger">*</span>
+                        <label asp-for="TotalQuestions" class="form-label"> TotalQuestions </label>
+                        <input asp-for="TotalQuestions" class="form-control" />
+                        <span asp-validation-for="TotalQuestions" class="text-danger"></span>
+                    </div>
+
+                    <!-- Country Code (Not Null) -->
+                    <div class="form-group">
+                        <span class="text-danger">*</span>
+                        <label asp-for="QuizDate" class="form-label">QuizDate</label>
+                        <input asp-for="QuizDate" class="form-control" />
+                        <span asp-validation-for="QuizDate" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <span class="text-danger">*</span>
+                        <label asp-for="UserID" class="form-label">UserID</label>
+                        <input asp-for="UserID" class="form-control" />
+                        <span asp-validation-for="UserID" class="text-danger"></span>
+                    </div>
+
+                    @* <div class="form-group"> *@
+                    @*     <span class="text-danger">*</span> *@
+                    @*     <label asp-for="modified" class="form-label">modified</label> *@
+                    @*     <input asp-for="modified" class="form-control" /> *@
+                    @*     <span asp-validation-for="modified" class="text-danger"></span> *@
+                    @* </div> *@
+
+                    <div class="mt-4">
+                        <button type="submit" class="btn btn-success me-2">Save</button>
+                        <button type="button" class="btn btn-danger">Reset</button>
+                        <a class="btn btn-warning ms-1" asp-area="" asp-controller="Quiz" asp-action="QuizList">
+                            Back
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>

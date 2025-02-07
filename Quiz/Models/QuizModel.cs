@@ -11,17 +11,23 @@ namespace Quiz.Models
         public string QuizName { get; set; }
 
         [Required]
+        public int QuizId { get; set; } 
+
+        [Required]
         public int TotalQuestions { get; set; }
 
         [Required]
         public DateTime QuizDate { get; set; }
 
         [Required]
-        //[ForeignKey("User")]
-        public string  UserName { get; set; }
+       
+        public int UserID { get; set; }
 
         [Required]
         public DateTime modified { get; set; }
+
+        [Required]
+        public DateTime Created { get; set; }
 
     }
 }

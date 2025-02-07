@@ -108,7 +108,7 @@ END
 
 
 -------------------------------Stored Procedures for MST_Quiz Table----------------------------
---EXEC PR_MST_Quiz_Insert 'exam2',60,'2020-10-10',14
+--EXEC PR_MST_Quiz_Insert 'quizExam',60,'2025-10-10',15
 --Stored Procedures for MST_Quiz Table Insert
 CREATE OR ALTER PROC PR_MST_Quiz_Insert
     @QuizName			NVARCHAR(100),
@@ -180,7 +180,7 @@ BEGIN
         [dbo].[MST_Quiz].[QuizName],
 		[dbo].[MST_Quiz].[TotalQuestions],
         [dbo].[MST_Quiz].[QuizDate],
-		[dbo].[MST_User].[UserName],
+		[dbo].[MST_User].[UserID],
         [dbo].[MST_Quiz].[Created],
         [dbo].[MST_Quiz].[Modified]
         FROM [dbo].[MST_Quiz]

@@ -6,6 +6,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title mb-3">Search</h5>
+                        <form>
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <input type="text" class="form-control" placeholder="Enter Quiz ID">
@@ -14,10 +15,11 @@
                                 <input type="text" class="form-control" placeholder="Enter Question ID">
                             </div>
                             <div class="col-12">
-                                <button class="btn btn-success me-2">Search</button>
-                                <button class="btn btn-secondary">Reset</button>
+                                <button type="submit"class="btn btn-success me-2">Search</button>
+                                <button type="reset" class="btn btn-secondary">Reset</button>
                             </div>
                         </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -26,13 +28,9 @@
         <!-- Table Section -->
         <div class="card">
             <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center my-3">
-                    <div>
-                        <a class="btn btn-primary btn-sm px-4 py-2" asp-controller="QuizWiseQuestion" asp-action="AddQuizWiseQuestion">+ Add Quiz Question</a>
-                    </div>
-                    <form class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search">
-                    </form>
+                <div class="d-flex justify-content-end align-items-center my-3">
+                    <a class="btn btn-primary btn-sm px-4 py-2 mx-3" asp-area="" asp-controller="QuizWiseQuestion" asp-action="AddQuizWiseQuestion">+ Add AddQuizWiseQuestion</a>
+                    <input class="form-control w-auto me-3" type="search" placeholder="Search..." aria-label="Search">
                 </div>
 
                 <div class="table-responsive">
