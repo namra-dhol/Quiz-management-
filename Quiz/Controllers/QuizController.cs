@@ -98,7 +98,7 @@ namespace Quiz.Controllers
             sqlConnection.Open();
             SqlCommand sqlCommand = sqlConnection.CreateCommand();
             sqlCommand.CommandType = CommandType.StoredProcedure;
-            sqlCommand.CommandText = "[dbo].[PR_MST_Quiz_Delete]";
+            sqlCommand.CommandText = "PR_MST_Quiz_Delete";
             sqlCommand.Parameters.Add("@QuizID", SqlDbType.Int).Value = QuizID;
             sqlCommand.ExecuteNonQuery();
             return RedirectToAction("QuizList");

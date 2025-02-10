@@ -55,15 +55,10 @@
                                     <td>@row["modified"]</td>
                                     <td>
                                         <a class="btn btn-sm btn-outline-primary me-1" asp-controller="Quiz" asp-action="AddEditQuiz" asp-route-QuizID="@row["QuizID"]">Edit</a>
-                                        @* <a asp-controller="Quiz" asp-action="QuizDelete" asp-route-ProductID="@row["QuizID"]" class="btn btn-outline-danger btn-xs"> *@
-                                        @*     delete *@
-                                        @* </a> *@
-                                        <form method="post" asp-controller="Quiz" asp-action="QuizDelete" onsubmit="return confirmDelete()">
-                                            <input type="hidden" name="UserID" value="@row["QuizID"]" />
-                                            <button style="width:100px" type="submit" class="btn btn-outline-danger btn-xs mt-1">
-                                                <i class=" bi bi-trash3"> Delete</i>
-                                            </button>
-                                        </form>
+                                        <a asp-controller="Quiz" asp-action="QuizDelete" asp-route-QuizID="@row["QuizID"]" class="btn btn-outline-danger btn-xs">
+                                            delete 
+                                         </a> 
+                                       
                                     </td>
                                 </tr>
                                 }
