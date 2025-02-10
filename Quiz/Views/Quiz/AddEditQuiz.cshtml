@@ -14,7 +14,7 @@
                 <h5 class="card-title mb-4">Quiz Add/Edit</h5>
 
                 <form asp-controller="Quiz" asp-action="QuizSave" method="post">
-
+                    <input hidden asp-for="QuizId" />
                     <div class="form-group">
                         <span class="text-danger">*</span>
                         <label asp-for="QuizName" class="form-label"> QuizName </label>

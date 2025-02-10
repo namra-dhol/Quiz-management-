@@ -52,9 +52,9 @@ namespace Quiz.Controllers
             foreach (DataRow row in datatable.Rows)
             {
                 model.QuizId = Convert.ToInt32(@row["QuizID"]);
-                model.QuizName = row["QuizName"].ToString();
+                model.QuizName = @row["QuizName"].ToString();
                 model.TotalQuestions = Convert.ToInt32(@row["TotalQuestions"]);
-                model.QuizDate = Convert.ToDateTime(row["QuizDate"]);
+                model.QuizDate = Convert.ToDateTime(@row["QuizDate"]);
                 model.UserID = Convert.ToInt32(@row["UserID"]);
             }
             return View("AddEditQuiz", model);
@@ -89,6 +89,19 @@ namespace Quiz.Controllers
             }
       
             return View("AddEditQuiz", model);
+        }
+      
+        public IActionResult QuizDelete(int QuizID)
+        {
+            string connectionString = this.configuration.GetConnectionString("ConnectionString");
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            sqlConnection.Open();
+            SqlCommand sqlCommand = sqlConnection.CreateCommand();
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.CommandText = "[dbo].[PR_MST_Quiz_Delete]";
+            sqlCommand.Parameters.Add("@QuizID", SqlDbType.Int).Value = QuizID;
+            sqlCommand.ExecuteNonQuery();
+            return RedirectToAction("QuizList");
         }
     }
 }

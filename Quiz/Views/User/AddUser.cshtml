@@ -1,4 +1,5 @@
-﻿<main id="main" class="main">
+﻿@model Quiz.Models.UserModel
+<main id="main" class="main">
     <div class="container mt-4">
         <div class="card">
             <div class="card-body">
@@ -13,23 +14,31 @@
 
                 <form>
                     <div class="mb-3">
-                        <label for="userName" class="form-label">User Name</label>
-                        <input type="text" class="form-control" id="userName" required maxlength="100">
+                        <span class="text-danger">*</span>
+                        <label asp-for="Username" class="form-label">User Name</label>
+                        <input type="text" asp-for="Username" class="form-control" id="userName">
+                        <span asp-validation-for="Username" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" required maxlength="100">
+                        <span class="text-danger">*</span>
+                        <label asp-for="Password" class="form-label">Password</label>
+                        <input type="password" asp-for="Password" class="form-control" id="password">
+                        <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" required maxlength="100">
+                        <span class="text-danger">*</span>
+                        <label asp-for="Email" class="form-label">Email</label>
+                        <input type="email" asp-for="Email" class="form-control" id="email">
+                        <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
-                        <label for="mobile" class="form-label">Mobile</label>
-                        <input type="tel" class="form-control" id="mobile" required maxlength="100">
+                        <span class="text-danger">*</span>
+                        <label asp-for="Mobile" class="form-label">Mobile</label>
+                        <input type="tel" asp-for="Mobile" class="form-control" id="mobile">
+                        <span asp-validation-for="Mobile" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">

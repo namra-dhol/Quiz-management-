@@ -20,7 +20,6 @@ namespace Quiz.Models
         public DateTime QuizDate { get; set; }
 
         [Required]
-       
         public int UserID { get; set; }
 
         [Required]
