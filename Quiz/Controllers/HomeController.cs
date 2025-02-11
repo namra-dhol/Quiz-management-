@@ -6,11 +6,12 @@ namespace Quiz.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<HomeController> _SignIn;
 
-        public HomeController(ILogger<HomeController> logger)
+
+        public HomeController(ILogger<HomeController> SignIn)
         {
-            _logger = logger;
+            _SignIn = SignIn;
         }
 
         public IActionResult Index()
