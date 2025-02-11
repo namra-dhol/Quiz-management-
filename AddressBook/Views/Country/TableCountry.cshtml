@@ -1,0 +1,60 @@
+﻿@model DataTable
+@using System.Data
+
+
+﻿<main id="main" class="main">
+    <h3>
+        <span class="text-danger">@TempData["ErrorMessage"]</span> </h3>
+    <div class="container mt-4">
+        <!-- Title and Add Button -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4 class="fw-bold text-primary">Country Details</h4>
+            <a class="btn btn-primary btn-sm px-4 py-2" asp-area="" asp-controller="Country" asp-action="AddCountry">+ Add Country</a>
+        </div>
+        <div class="table-responsive shadow-sm rounded">
+            <table class="table table-striped table-hover align-middle">
+                <thead class="table-primary">
+                    <tr>
+                        <th>CountryId</th>
+                        <th>CountryName</th>
+                        <th>CountryCode</th>
+                        <th>CreationDate</th>
+                        <th>UserID</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (DataRow row in Model.Rows)
+                    {
+                        <tr>
+                            <td>@row["CountryId"]</td>
+                            <td>@row["CountryName"]</td>
+                            <td>@row["CountryCode"]</td>
+                            <td>@row["CountryCode"]</td>
+                            <td>@row["UserID"]</td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-primary me-1">Edit</button>
+                                <a asp-controller="Country" asp-action="CountryDelete" asp-route-CountryId="@row["CountryId"]" class="btn btn-outline-danger btn-xs"> soft delete  </a>
+                                <a asp-controller="Country" asp-action="CountryDelete" asp-route-CountryId="@row["CountryId"]"
+                                   class="btn btn-outline-danger btn-xs"
+                                   onclick="return confirm('Are you sure you want to delete this country?');">
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                
+            </table>
+        </div>
+    </div>
+
+</main>
+
+@* <script> *@
+
+@*     function  alertMessage(){ *@
+@*       return confirm("are you sure "); *@
+
+@*     } *@
+@* </script> *@

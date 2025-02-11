@@ -1,0 +1,36 @@
+﻿﻿<main id="main" class="main">
+    <div class="container mt-4">
+        <!-- Title and Add Button -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4 class="fw-bold text-primary">User Details</h4>
+            <a class="btn btn-primary btn-sm px-4 py-2" asp-area="" asp-controller="User" asp-action="AddUser">+Add User</a>
+        </div>
+
+        <!-- Table -->
+        <div class="table-responsive shadow-sm rounded">
+            <table class="table table-striped table-hover align-middle">
+                <thead class="table-primary">
+                    <tr>
+                        <th>UserID</th>
+                        <th>UserName</th>
+                        <th>MobileNo</th>
+                        <th>CityName</th>
+                        <th>EmailID</th>
+                        <th>CreationDate</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Namra</td>
+                        <td>2345678901</td>
+                        <td>San Francisco</td>
+                        <td>Demo@gmail.com</td>                        
+                        <td>2025-01-01</td> 
+                    </tr>
+                    <!-- Add more rows as needed -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
