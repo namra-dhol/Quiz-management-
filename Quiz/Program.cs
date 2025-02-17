@@ -1,7 +1,12 @@
+using Microsoft.AspNetCore.Mvc.Routing;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddSingleton<IUrlHelperFactory, UrlHelperFactory>();
+
 
 var app = builder.Build();
 
@@ -21,3 +26,5 @@ app.MapControllerRoute(
     pattern: "{controller=Login}/{action=SignIn}/{id?}");
 
 app.Run();
+
+

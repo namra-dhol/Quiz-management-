@@ -1,4 +1,6 @@
-﻿<main id="main" class="main">
+﻿@model Quiz.Models.QuizWiseQuestonModel
+
+<main id="main" class="main">
     <div class="container mt-4">
         <div class="card">
             <div class="card-body">
@@ -14,6 +16,7 @@
                 <form>
 
                     <div class="mb-3">
+                        <span class="text-danger">*</span>
                         <label for="quizId" class="form-label">Quiz ID</label>
                         <select class="form-select" id="quizId" required>
                             <option value="">Select Quiz</option>
@@ -24,6 +27,7 @@
                     </div>
 
                     <div class="mb-3">
+                        <span class="text-danger">*</span>
                         <label for="questionId" class="form-label">Question ID</label>
                         <select class="form-select" id="questionId" required>
                             <option value="">Select Question</option>
@@ -34,10 +38,10 @@
                     </div>
 
                     <div class="mb-3">
+                        <span class="text-danger">*</span>
                         <label for="userId" class="form-label">User ID</label>
                         <input type="text" class="form-control" id="userId" required>
                     </div>
-
                     <button type="submit" class="btn btn-success me-2">Save</button>
                     <button type="button" class="btn btn-danger">Reset</button>
                     <a class="btn btn-warning ms-1" asp-controller="QuizWiseQuestion" asp-action="QuizWiseQuestionList">

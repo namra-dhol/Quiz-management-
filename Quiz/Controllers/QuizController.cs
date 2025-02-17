@@ -93,15 +93,29 @@ namespace Quiz.Controllers
       
         public IActionResult QuizDelete(int QuizID)
         {
-            string connectionString = this.configuration.GetConnectionString("ConnectionString");
-            SqlConnection sqlConnection = new SqlConnection(connectionString);
-            sqlConnection.Open();
-            SqlCommand sqlCommand = sqlConnection.CreateCommand();
-            sqlCommand.CommandType = CommandType.StoredProcedure;
-            sqlCommand.CommandText = "PR_MST_Quiz_Delete";
-            sqlCommand.Parameters.Add("@QuizID", SqlDbType.Int).Value = QuizID;
-            sqlCommand.ExecuteNonQuery();
-            return RedirectToAction("QuizList");
+            try
+            {
+                string connectionString = this.configuration.GetConnectionString("ConnectionString");
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    SqlCommand command = connection.CreateCommand();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.CommandText = "PR_MST_Quiz_Delete";
+                    command.Parameters.Add("@QuizID", SqlDbType.Int).Value = QuizID;
+
+
+                    command.ExecuteNonQuery();
+                }
+
+                TempData["SuccessMessage"] = "table QuizList deleted successfully.";
+                return RedirectToAction("QuizList");
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "An error occurred while deleting the Quiz: " + ex.Message;
+                return RedirectToAction("QuizList");
+            }
         }
     }
 }

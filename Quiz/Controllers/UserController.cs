@@ -35,6 +35,33 @@ namespace Quiz.Controllers
                 }
             }
         }
+
+        public IActionResult UserDelete(int UserID)
+        {
+            try
+            {
+                string connectionString = this.configuration.GetConnectionString("ConnectionString");
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    SqlCommand command = connection.CreateCommand();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.CommandText = "PR_MST_User_Delete";
+                    command.Parameters.Add("@UserID", SqlDbType.Int).Value = UserID;
+
+
+                    command.ExecuteNonQuery();
+                }
+
+                TempData["SuccessMessage"] = "table QuizList deleted successfully.";
+                return RedirectToAction("UserList");
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "An error occurred while deleting the Quiz: " + ex.Message;
+                return RedirectToAction("UserList");
+            }
+        }
         public IActionResult AddUser()
         {
             return View();

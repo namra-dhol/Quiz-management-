@@ -2,6 +2,9 @@
 @using System.Data
 
 <main id="main" class="main">
+    <h3>
+        <span class="text-danger">@TempData["ErrorMessage"]</span>
+    </h3>
     <div class="container-fluid">
         <!-- Search Section -->
         <div class="card mb-4">
@@ -55,7 +58,8 @@
                                     <td>@row["modified"]</td>
                                     <td>
                                         <a class="btn btn-sm btn-outline-primary me-1" asp-controller="Quiz" asp-action="AddEditQuiz" asp-route-QuizID="@row["QuizID"]">Edit</a>
-                                        <a asp-controller="Quiz" asp-action="QuizDelete" asp-route-QuizID="@row["QuizID"]" class="btn btn-outline-danger btn-xs">
+                                        <a asp-controller="Quiz" asp-action="QuizDelete" asp-route-QuizID="@row["QuizID"]" class="btn btn-outline-danger btn-xs"
+                                           onclick="return confirm('Are you sure you want to delete this country?');">
                                             delete 
                                          </a> 
                                        
