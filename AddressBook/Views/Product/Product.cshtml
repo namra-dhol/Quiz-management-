@@ -1,7 +1,7 @@
-﻿@model Product
+﻿@model ProductModel
 
 <main id="main" class="main">
-    @using (Html.BeginForm("Product", "Product", FormMethod.Post, new { id = "productForm" }))
+    @using (Html.BeginForm("ProductSave", "Product", FormMethod.Post, new { id = "productForm" }))
     {
         <div class="form-group">
             @Html.LabelFor(model => model.productID)
@@ -39,6 +39,6 @@
             @Html.ValidationMessageFor(model => model.productCompany)
         </div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit"  class="btn btn-primary">Submit</button>
     }
 </main>

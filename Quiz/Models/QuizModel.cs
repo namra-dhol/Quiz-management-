@@ -14,6 +14,7 @@ namespace Quiz.Models
         public int QuizId { get; set; } 
 
         [Required]
+        [Range(1,100)]
         public int TotalQuestions { get; set; }
 
         [Required]

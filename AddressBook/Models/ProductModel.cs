@@ -2,13 +2,14 @@
 
 namespace AddressBook.Models
 {
-    public class Product
+    public class ProductModel
     {
         public int productID { get; set; }
 
         [Required(ErrorMessage = "Product Name is required.")]
         
         public string productName { get; set; }
+
 
         [Required(ErrorMessage = "Price is required.")]
       

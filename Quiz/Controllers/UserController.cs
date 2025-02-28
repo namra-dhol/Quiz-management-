@@ -2,6 +2,7 @@
 using System.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Quiz.Models;
 
 namespace Quiz.Controllers
 {
@@ -62,9 +63,46 @@ namespace Quiz.Controllers
                 return RedirectToAction("UserList");
             }
         }
-        public IActionResult AddUser()
+        public IActionResult UserLogin(UserLoginModel userLoginModel)
         {
-            return View();
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    string connectionString = this.configuration.GetConnectionString("ConnectionString");
+                    SqlConnection sqlConnection = new SqlConnection(connectionString);
+                    sqlConnection.Open();
+                    SqlCommand sqlCommand = sqlConnection.CreateCommand();
+                    sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                    sqlCommand.CommandText = "PR_MST_User_Login";
+                    sqlCommand.Parameters.Add("@UserName", SqlDbType.VarChar).Value = userLoginModel.UserName;
+                    sqlCommand.Parameters.Add("@Password", SqlDbType.VarChar).Value = userLoginModel.Password;
+                    SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                    DataTable dataTable = new DataTable();
+                    dataTable.Load(sqlDataReader);
+                    if (dataTable.Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in dataTable.Rows)
+                        {
+                            HttpContext.Session.SetString("UserID", dr["UserID"].ToString());
+                            HttpContext.Session.SetString("UserName", dr["UserName"].ToString());
+                        }
+
+                        return RedirectToAction("index", "Home");
+                    }
+                    else
+                    {
+                        return RedirectToAction("SignIn", "Login");
+                    }
+
+                }
+            }
+            catch (Exception e)
+            {
+                TempData["ErrorMessage"] = e.Message;
+            }
+
+            return RedirectToAction("SignIn");
         }
 
     }

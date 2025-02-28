@@ -3,6 +3,7 @@ using System.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Quiz.Models;
+using static Quiz.Models.UserModel;
 
 namespace Quiz.Controllers
 {
@@ -57,6 +58,7 @@ namespace Quiz.Controllers
                 model.QuizDate = Convert.ToDateTime(@row["QuizDate"]);
                 model.UserID = Convert.ToInt32(@row["UserID"]);
             }
+            QuizUserDropDown();
             return View("AddEditQuiz", model);
 
         }
@@ -87,7 +89,11 @@ namespace Quiz.Controllers
                 return RedirectToAction("QuizList");
 
             }
-      
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction("QuizList");
+            }
+            QuizUserDropDown();
             return View("AddEditQuiz", model);
         }
       
@@ -117,5 +123,28 @@ namespace Quiz.Controllers
                 return RedirectToAction("QuizList");
             }
         }
+        #region User_Dropdown
+        public void QuizUserDropDown()
+        {
+            string connectionString = configuration.GetConnectionString("ConnectionString");
+            SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+            SqlCommand command = connection.CreateCommand();
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "Dropdown_MST_User";
+            SqlDataReader reader = command.ExecuteReader();
+            DataTable dataTable = new DataTable();
+            dataTable.Load(reader);
+            List<UserDropdownModel> list = new List<UserDropdownModel>();
+            foreach (DataRow data in dataTable.Rows)
+            {
+                UserDropdownModel model = new UserDropdownModel();
+                model.UserID = Convert.ToInt32(data["UserID"]);
+                model.UserName = data["UserName"].ToString();
+                list.Add(model);
+            }
+            ViewBag.User = list;
+        }
+        #endregion User_Dropdown
     }
 }

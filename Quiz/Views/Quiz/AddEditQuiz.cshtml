@@ -40,10 +40,18 @@
 
                     <div class="form-group">
                         <span class="text-danger">*</span>
-                        <label asp-for="UserID" class="form-label">UserID</label>
-                        <input asp-for="UserID" class="form-control" />
-                        <span asp-validation-for="UserID" class="text-danger"></span>
+                        <label class="form-label">User Name</label>
+                        <select asp-for="UserID" class="form-select">
+                            <option>-- Select User Name --</option>
+                            @foreach (var level in ViewBag.User)
+                            {
+                                <option value="@level.UserID">@level.UserName</option>
+                            }
+                        </select>
+                        <span asp-validation-for="UserID" class="text text-danger"></span>
                     </div>
+
+
 
                     @* <div class="form-group"> *@
                     @*     <span class="text-danger">*</span> *@

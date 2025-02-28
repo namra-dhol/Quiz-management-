@@ -25,4 +25,9 @@ namespace Quiz.Models
         [Required]
         public DateTime Modified {  get; set; }
     }
+    public class UserDropdownModel
+    {
+        public int UserID { get; set; }
+        public string UserName { get; set; }
+    }
 }
