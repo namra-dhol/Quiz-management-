@@ -11,6 +11,7 @@
 
         <!-- Table -->
         <div class="table-responsive shadow-sm rounded">
+           
             <table class="table table-striped table-hover align-middle">
                 <thead class="table-primary">
                     <tr>
@@ -39,10 +40,15 @@
                             <td>@row["UserID"]</td>
                             <td>
                                 <button class="btn btn-sm btn-outline-primary me-1">Edit</button>
-                                <button class="btn btn-sm btn-outline-danger">Delete</button>
+                                <button class="btn btn-sm btn-outline-danger">Delete
+                                </button>
+                                <a asp-controller="ExportToExcle" asp-action="ExportToExcel" class="btnbtn-sm btn-outline-sucess">
+                                    Export to Excel
+                                </a>
                             </td>
                         </tr>
                     }
+
                            
                     </tr>
                     <!-- Add more rows as needed -->

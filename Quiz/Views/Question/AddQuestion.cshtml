@@ -1,4 +1,4 @@
-﻿@model Quiz.Models.Question
+﻿@model Quiz.Models.QuestionModel
 
 <main id="main" class="main">
     <div class="container mt-4">
@@ -13,25 +13,26 @@
 
                 <h5 class="card-title mb-4">Question Add/Edit</h5>
 
-                <form>
+                <form asp-controller="Question" asp-action="QuestionSave" method="post">
+                    <input hidden asp-for="QuestionID" />
                     <div class="mb-3">
                         <span class="text-danger">*</span>
-                        <label asp-for="questionText" class="form-label">Question Text</label>
-                        <textarea asp-for="questionText" class="form-control" id="questionText" rows="3" ></textarea>
-                        <span asp-validation-for="questionText" class="text-danger"></span>
+                        <label asp-for="QuestionText" class="form-label">Question Text</label>
+                        <textarea asp-for="QuestionText" class="form-control" id="questionText" rows="3"></textarea>
+                        <span asp-validation-for="QuestionText" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
                         <span class="text-danger">*</span>
-                        <label asp-for="questionLevel" class="form-label">Question Level</label>
-                        <select asp-for="questionLevel"  class="form-select" id="questionLevel" >
-                            <option value="">Select Level</option>
-                            <option value="1">Beginner</option>
-                            <option value="2">Intermediate</option>
-                            <option value="3">Advanced</option>
+                        <label class="form-label">Question Level</label>
+                        <select asp-for="QuestionLevelID" class="form-select" required>
+                            <option value="">-- Select Level --</option>
+                            @foreach (var level in ViewBag.QuestionLevel)
+                            {
+                                <option value="@level.QuestionLevelID">@level.QuestionLevel</option>
+                            }
                         </select>
-                        <span asp-validation-for="questionLevel" class="text-danger"></span>
-
+                        <span asp-validation-for="QuestionLevelID" class="text text-danger"></span>
                     </div>
 
                     <div class="mb-3">
@@ -64,31 +65,42 @@
 
                     <div class="mb-3">
                         <span class="text-danger">*</span>
-                        <label asp-for="correctOption" class="form-label">Correct Option</label>
-                        <select asp-for="correctOption" class="form-select" id="correctOption" >
+                        <label asp-for="CorrectOption" class="form-label">Correct Option</label>
+                        <select asp-for="CorrectOption" class="form-select" id="correctOption">
                             <option value="">Select Correct Option</option>
                             <option value="A">Option A</option>
                             <option value="B">Option B</option>
                             <option value="C">Option C</option>
                             <option value="D">Option D</option>
                         </select>
-                        <span asp-validation-for="correctOption" class="text-danger"></span>
+                        <span asp-validation-for="CorrectOption" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
                         <span class="text-danger">*</span>
-                        <label asp-for="questionMarks" class="form-label">Question Marks</label>
-                        <input asp-for="questionMarks" type="number" class="form-control" id="questionMarks" >
-                        <span asp-validation-for="questionMarks" class="text-danger"></span>
+                        <label asp-for="QuestionMarks" class="form-label">Question Marks</label>
+                        <input asp-for="QuestionMarks" type="number" class="form-control" id="questionMarks">
+                        <span asp-validation-for="QuestionMarks" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <span class="text-danger">*</span>
+                        <label class="form-label">User Name</label>
+                        <select asp-for="UserID" class="form-select">
+                            <option>-- Select User Name --</option>
+                            @foreach (var level in ViewBag.User)
+                            {
+                                <option value="@level.UserID">@level.UserName</option>
+                            }
+                        </select>
+                        <span asp-validation-for="UserID" class="text text-danger"></span>
                     </div>
 
                     <div class="mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="isActive" checked>
-                            <label class="form-check-label" for="isActive">
-                                Is Active
-                            </label>
-                        </div>
+                        <span class="text-danger">*</span>
+                        <input asp-for="IsActive" class="form-check-input">
+                        <label class="form-label">Is Active</label>
+                        <span asp-validation-for="IsActive" class="text text-danger"></span>
                     </div>
 
                     <button type="submit" class="btn btn-success me-2">Save</button>

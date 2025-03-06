@@ -9,7 +9,7 @@ namespace Quiz.Models
         {
             if (filterContext.HttpContext.Session.GetString("UserID") == null)
             {
-                filterContext.Result = new RedirectResult("~/User/Login");
+                filterContext.Result = new RedirectResult("~/Login/Login");
             }
         }
 

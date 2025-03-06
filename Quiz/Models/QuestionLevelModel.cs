@@ -2,14 +2,14 @@
 
 namespace Quiz.Models
 {
-    public class QuestionLevel
+    public class QuestionLevelModel
     {
         [Required]
         public String Questionlevel { get; set; }
+       
+        public String? UserName { get; set; }
         [Required]
-        public String UserName { get; set; }
-        [Required]
-        public int userId{ get; set; }
+        public int UserID { get; set; }
         [Required]
         public int QuestionLevelID { get; set; }
         [Required]
@@ -17,5 +17,10 @@ namespace Quiz.Models
         [Required]
         public DateTime modified { get; set; }
 
+    }
+    public class QuestionLevelDropdownModel
+    {
+        public int QuestionLevelID { get; set; }
+        public string QuestionLevel { get; set; }
     }
 }

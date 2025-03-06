@@ -1,0 +1,51 @@
+﻿@model Quiz.Models.QuestionLevelModel
+<main id="main" class="main">
+    <div class="container-fluid">
+        <h2 style="color:steelblue" class="card-title fs-2">Question Level Add/Edit</h2>
+        <div class="card">
+            <div class="card-body">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mt-3">
+                        <li class="breadcrumb-item">
+                            <a asp-controller="QuestionLevel" asp-action="QuestionLevelList">Question Level</a>
+                        </li>
+                        <li class="breadcrumb-item active">Question Level Add</li>
+                    </ol>
+                </nav>
+
+                <h5 class="card-title mb-4">Question Level Add/Edit</h5>
+
+
+
+                <form asp-controller="QuestionLevel" asp-action="QuestionLevelSave" method="post">
+                    <input hidden asp-for="QuestionLevelID" />
+                    <div class="mb-3">
+                        <span class="text-danger">*</span>
+                        <label class="form-label">Question Level</label>
+                        <input asp-for="Questionlevel" type="text" class="form-control">
+                        <span asp-validation-for="Questionlevel" class="text text-danger "></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <span class="text-danger">*</span>
+                        <label class="form-label">User Name</label>
+                        <select asp-for="UserID" class="form-select">
+                            <option>-- Select User Name --</option>
+                            @foreach (var level in ViewBag.User)
+                            {
+                                <option value="@level.UserID">@level.UserName</option>
+                            }
+                        </select>
+                        <span asp-validation-for="UserID" class="text text-danger"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-success me-2">Save</button>
+                    <button type="button" class="btn btn-danger">Reset</button>
+                    <a class="btn btn-warning ms-1" asp-controller="QuestionLevel" asp-action="QuestionLevelList">
+                        Back
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>

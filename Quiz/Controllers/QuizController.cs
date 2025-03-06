@@ -7,6 +7,7 @@ using static Quiz.Models.UserModel;
 
 namespace Quiz.Controllers
 {
+    [CheckAccess]
     public class QuizController : Controller
     {
         private IConfiguration configuration;
@@ -37,7 +38,7 @@ namespace Quiz.Controllers
             }
         }
 
-        public IActionResult AddEditQuiz(int QuizID)
+        public IActionResult AddQuiz(int QuizID)
         {
             string connectionString = this.configuration.GetConnectionString("ConnectionString");
             SqlConnection connection = new SqlConnection(connectionString);
@@ -59,7 +60,7 @@ namespace Quiz.Controllers
                 model.UserID = Convert.ToInt32(@row["UserID"]);
             }
             QuizUserDropDown();
-            return View("AddEditQuiz", model);
+            return View("AddQuiz", model);
 
         }
         public IActionResult QuizSave(QuizModel model)
@@ -94,7 +95,7 @@ namespace Quiz.Controllers
                 return RedirectToAction("QuizList");
             }
             QuizUserDropDown();
-            return View("AddEditQuiz", model);
+            return View("AddQuiz", model);
         }
       
         public IActionResult QuizDelete(int QuizID)

@@ -12,7 +12,8 @@
 
                 <h5 class="card-title mb-4">User Add/Edit</h5>
 
-                <form>
+                <form asp-controller="User" asp-action="UserSave" method="post">
+                    <input hidden asp-for="UserID" />
                     <div class="mb-3">
                         <span class="text-danger">*</span>
                         <label asp-for="Username" class="form-label">User Name</label>
@@ -42,22 +43,20 @@
                     </div>
 
                     <div class="mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="isActive" checked>
-                            <label class="form-check-label" for="isActive">
-                                Is Active
-                            </label>
-                        </div>
+                        <span class="text-danger">*</span>
+                        <input asp-for="IsActive" class="form-check-input">
+                        <label class="form-label">Is Active</label>
+                        <span asp-validation-for="IsActive" class="text text-danger"></span>
                     </div>
 
                     <div class="mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="isAdmin">
-                            <label class="form-check-label" for="isAdmin">
-                                Is Admin
-                            </label>
-                        </div>
+                        <span class="text-danger">*</span>
+                        <input asp-for="IsAdmin" class="form-check-input">
+                        <label class="form-label">Is Admin</label>
+                        <span asp-validation-for="IsAdmin" class="text text-danger"></span>
                     </div>
+
+                    
 
                     <button type="submit" class="btn btn-success me-2">Save</button>
                     <button type="reset" class="btn btn-danger">Reset</button>

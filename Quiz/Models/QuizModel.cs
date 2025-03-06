@@ -23,11 +23,13 @@ namespace Quiz.Models
         [Required]
         public int UserID { get; set; }
 
-        [Required]
         public DateTime modified { get; set; }
-
-        [Required]
         public DateTime Created { get; set; }
 
+    }
+    public class QuizDropdownModel
+    {
+        public int QuizID { get; set; }
+        public string QuizName { get; set; }
     }
 }

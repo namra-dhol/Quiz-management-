@@ -1,43 +1,40 @@
 ﻿namespace Quiz.Models
 {
-    public class CommonVariable
+
+    public static class CommonVariables
     {
-        private static IHttpContextAccessor _HttpContextAccessor;
+        //Provides access to the current Microsoft.AspNetCore.Http.IHttpContextAccessor.HttpContext
+        private static IHttpContextAccessor _httpContextAccessor;
 
-        static CommonVariable()
+        static CommonVariables()
         {
-            _HttpContextAccessor = new HttpContextAccessor();
+            _httpContextAccessor = new HttpContextAccessor();
         }
-
 
         public static int? UserID()
         {
+            //Initialize the UserID with null
+            int? UserID = null;
 
-            if (_HttpContextAccessor.HttpContext.Session.GetString("UserID") == null)
+            //check if session contains specified key?
+            //if it contains then return the value contained by the key.
+            if (_httpContextAccessor.HttpContext.Session.GetString("UserID") != null)
             {
-                return null;
+                UserID = Convert.ToInt32(_httpContextAccessor.HttpContext.Session.GetString("UserID").ToString());
             }
-
-            return Convert.ToInt32(_HttpContextAccessor.HttpContext.Session.GetString("UserID"));
+            return UserID;
         }
 
-        public static string UserName()
+        public static string? UserName()
         {
-            if (_HttpContextAccessor.HttpContext.Session.GetString("UserName") == null)
-            {
-                return null;
-            }
+            string? UserName = null;
 
-            return _HttpContextAccessor.HttpContext.Session.GetString("UserName");
-        }
-
-        public static string Email()
-        {
-            if (_HttpContextAccessor.HttpContext.Session.GetString("EmailAddress") == null)
+            if (_httpContextAccessor.HttpContext.Session.GetString("UserName") != null)
             {
-                return null;
+                UserName = _httpContextAccessor.HttpContext.Session.GetString("UserName").ToString();
             }
-            return _HttpContextAccessor.HttpContext.Session.GetString("EmailAddress");
+            return UserName;
         }
     }
+
 }

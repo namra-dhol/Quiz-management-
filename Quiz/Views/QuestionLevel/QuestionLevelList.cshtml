@@ -1,26 +1,23 @@
 ﻿@model DataTable
 @using System.Data
 <main id="main" class="main">
-
-    <span class="text-danger">@TempData["ErrorMessage"]</span>
     <div class="container-fluid">
+        <h2 style="color:steelblue" class="card-title fs-2">Question Level List</h2>
         <!-- Search Section -->
-        <div class="row mb-4">
+        <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title mb-3">Search</h5>
-                        <form>
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <input type="text" class="form-control" placeholder="Enter Question Level">
                             </div>
                             <div class="col-12">
-                                <button type="submit" class="btn btn-success me-2">Search</button>
-                                <button type="reset"  class="btn btn-secondary">Reset</button>
+                                <button class="btn btn-success me-2">Search</button>
+                                <button class="btn btn-secondary">Reset</button>
                             </div>
                         </div>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -30,10 +27,13 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex justify-content-end align-items-center my-3">
-                    <a class="btn btn-primary btn-sm px-4 py-2 mx-3" asp-area="" asp-controller="QuestionLevel" asp-action="AddQuestionLevel">+ Add QuestionLevel</a>
-                    <input class="form-control w-auto me-3" type="search" placeholder="Search..." aria-label="Search">
+                    <div>
+                        <a class="btn btn-primary btn-sm px-4 py-2 mx-3" asp-controller="QuestionLevel" asp-action="AddEditQuestionLevel">+ Add Question Level</a>
+                    </div>
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search">
+                    </form>
                 </div>
-
 
                 <div class="table-responsive">
                     <table class="table table-striped table-hover">
@@ -41,31 +41,37 @@
                             <tr>
                                 <th>Level ID</th>
                                 <th>Question Level</th>
-                                <th>Username</th>
+                                <th>User Name</th>
                                 <th>Created</th>
                                 <th>Modified</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (DataRow row in Model.Rows)
-                            {
-                                <tr>
-                                    <td>@row["QuestionLevelID"]</td>
-                                    <td>@row["QuestionLevel"]</td>
-                                    <td>@row["UserName"]</td>
-                                    <td>@row["Created"]</td>
-                                    <td>@row["Modified"]</td>
-                                    <td>
-                                        <button style="width:100px" class="btn btn-sm btn-outline-primary me-1 mt-1">
-                                            <i class="bi bi-pencil">Edit</i>
-                                        </button>
-                                        <a asp-controller="QuestionLevel" asp-action="QuestionLevelDelete" asp-route-QuestionLevelID="@row["QuestionLevelID"]" class="btn btn-outline-danger btn-xs"
-                                           onclick="return confirm('Are you sure you want to delete this country?');">
-                                            delete
-                                        </a>
-                                    </td>
-                                </tr>
+                            @{
+                                int i = 1;
+                                foreach (DataRow row in Model.Rows)
+                                {
+                                    <tr>
+                                        <td>@row["QuestionLevelID"]</td>
+                                        <td>@row["QuestionLevel"]</td>
+                                        <td>@row["UserName"]</td>
+                                        <td>@row["Created"]</td>
+                                        <td>@row["Modified"]</td>
+                                        <td>
+                                            <a style="width:100px" class="btn btn-sm btn-outline-primary me-1 mt-1" asp-controller="QuestionLevel" asp-action="AddEditQuestionLevel" asp-route-QuestionLevelID="@row["QuestionLevelID"]">
+                                                <i class="bi bi-pencil"></i> Edit
+                                            </a>
+                                            <form method="post" asp-controller="QuestionLevel" asp-action="DeleteQuestionLevel" onsubmit="return confirmDelete()">
+                                                <input type="hidden" name="QuestionLevelID" value="@row["QuestionLevelID"]" />
+                                                <button style="width:100px" type="submit" class="btn btn-outline-danger btn-xs mt-1">
+                                                    <i class=" bi bi-trash3"> Delete</i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    i++;
+                                }
                             }
                         </tbody>
                     </table>
@@ -91,3 +97,8 @@
         </div>
     </div>
 </main>
+<script>
+    function confirmDelete() {
+        return confirm("Are you Sure! You want to Delete this record from Question level-table?")
+    }
+</script>

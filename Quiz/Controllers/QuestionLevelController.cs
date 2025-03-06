@@ -5,6 +5,7 @@ using Quiz.Models;
 
 namespace Quiz.Controllers
 {
+    [CheckAccess]
     public class QuestionLevelController : Controller
     {
         private IConfiguration configuration;
@@ -13,6 +14,7 @@ namespace Quiz.Controllers
         {
             configuration = _configuration;
         }
+
         public IActionResult QuestionLevelList()
         {
             string connectionString = configuration.GetConnectionString("ConnectionString");
@@ -26,35 +28,88 @@ namespace Quiz.Controllers
             table.Load(reader);
             return View(table);
         }
-        public IActionResult AddQuestionLevel()
+        public IActionResult QuestionLevelSave(QuestionLevelModel model)
         {
-            return View();
-        }
-        public IActionResult QuestionLevelDelete(int QuestionLevelID)
-        {
-            try
+            if (ModelState.IsValid)
             {
-                string connectionString = this.configuration.GetConnectionString("ConnectionString");
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                string connectionString = configuration.GetConnectionString("ConnectionString");
+                SqlConnection connection = new SqlConnection(connectionString);
+                connection.Open();
+                SqlCommand command = connection.CreateCommand();
+                command.CommandType = CommandType.StoredProcedure;
+                if (model.QuestionLevelID == 0)
                 {
-                    connection.Open();
-                    SqlCommand command = connection.CreateCommand();
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.CommandText = "PR_MST_QuestionLevel_Delete";
-                    command.Parameters.Add("@QuestionLevelID", SqlDbType.Int).Value = QuestionLevelID;
-
-
-                    command.ExecuteNonQuery();
+                    command.CommandText = "[dbo].[PR_MST_QuestionLevel_Insert]";
                 }
-
-                TempData["SuccessMessage"] = "table QuizList deleted successfully.";
+                else
+                {
+                    command.CommandText = "[dbo].[PR_MST_QuestionLevel_Update]";
+                    command.Parameters.AddWithValue("@QuestionLevelID", model.QuestionLevelID);
+                }
+                command.Parameters.AddWithValue("@QuestionLevel", model.Questionlevel);
+                command.Parameters.AddWithValue("@UserID", model.UserID);
+                command.ExecuteNonQuery();
                 return RedirectToAction("QuestionLevelList");
             }
-            catch (Exception ex)
-            {
-                TempData["ErrorMessage"] = "An error occurred while deleting the Quiz: " + ex.Message;
-                return RedirectToAction("QuestionLevelList");
-            }
+            QuestionLevelUserDropDown();
+            return View("AddEditQuestionLevel", model);
         }
+        public IActionResult AddEditQuestionLevel(int QuestionLevelID)  
+        {
+            string connectionString = configuration.GetConnectionString("ConnectionString");
+            SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+            SqlCommand command = connection.CreateCommand();
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "[dbo].[PR_MST_QuestionLevel_SelectByID]";
+            command.Parameters.AddWithValue("@QuestionLevelID", QuestionLevelID);
+            SqlDataReader reader = command.ExecuteReader();
+            DataTable table = new DataTable();
+            table.Load(reader);
+            QuestionLevelModel questionLevelModel = new QuestionLevelModel();
+            foreach (DataRow row in table.Rows)
+            {
+                questionLevelModel.Questionlevel = @row["QuestionLevel"].ToString();
+                questionLevelModel.UserID = Convert.ToInt32(@row["UserID"]);
+            }
+            QuestionLevelUserDropDown();
+            return View("AddEditQuestionLevel", questionLevelModel);
+        }
+        public IActionResult DeleteQuestionLevel(int QuestionLevelID)
+        {
+            string connectionString = this.configuration.GetConnectionString("ConnectionString");
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            sqlConnection.Open();
+            SqlCommand sqlCommand = sqlConnection.CreateCommand();
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.CommandText = "[dbo].[PR_MST_QuestionLevel_Delete]";
+            sqlCommand.Parameters.Add("@QuestionLevelID", SqlDbType.Int).Value = QuestionLevelID;
+            sqlCommand.ExecuteNonQuery();
+            return RedirectToAction("QuestionLevelList");
+        }
+
+        #region User_Dropdown
+        public void QuestionLevelUserDropDown()
+        {
+            string connectionString = configuration.GetConnectionString("ConnectionString");
+            SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+            SqlCommand command = connection.CreateCommand();
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "Dropdown_MST_User";
+            SqlDataReader reader = command.ExecuteReader();
+            DataTable dataTable = new DataTable();
+            dataTable.Load(reader);
+            List<UserDropdownModel> list = new List<UserDropdownModel>();
+            foreach (DataRow data in dataTable.Rows)
+            {
+                UserDropdownModel model = new UserDropdownModel();
+                model.UserID = Convert.ToInt32(data["UserID"]);
+                model.UserName = data["UserName"].ToString();
+                list.Add(model);
+            }
+            ViewBag.User = list;
+        }
+        #endregion User_Dropdown
     }
 }

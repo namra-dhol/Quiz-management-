@@ -1,0 +1,26 @@
+﻿@model DataTable
+@using System.Data
+
+<main>
+	<table>
+		<tr>
+			<td>EmpID</td>
+			<td>EmpName</td>
+			<td>department</td>
+			<td>salary</td>
+			<td>created</td>
+		</tr>
+		 @foreach (DataRow row in Model.Rows)
+                                {
+                                <tr>
+				<td>@row["EmpID"]</td>
+				<td>@row["EmpName"]</td>
+				<td>@row["department"]</td>
+				<td>@row["salary"]</td>
+				<td>@row["created"]</td>
+								</tr>
+								}
+	</table>
+
+
+</main>

@@ -15,9 +15,9 @@ namespace Quiz.Models
         [Required] 
         public string Mobile { get; set; }
         [Required]
-        public Boolean IsActive { get; set; }
+        public bool IsActive { get; set; }
         [Required]
-        public Boolean IsAdmin { get; set; }
+        public bool IsAdmin { get; set; }
       
         [Required]
         public DateTime Created { get; set; }
@@ -29,5 +29,24 @@ namespace Quiz.Models
     {
         public int UserID { get; set; }
         public string UserName { get; set; }
+    }
+
+    public class UserRegisterModel
+    {
+        public int? UserID { get; set; }
+
+        [Required(ErrorMessage = "Username is required.")]
+        public string UserName { get; set; }
+
+        [Required(ErrorMessage = "Password is required.")]
+        public string Password { get; set; }
+
+        [Required(ErrorMessage = "Email is required.")]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage = "Mobile Number is required.")]
+        public string MobileNo { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsAdmin { get; set; }
     }
 }
