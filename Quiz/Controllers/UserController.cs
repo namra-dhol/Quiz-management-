@@ -3,6 +3,7 @@ using System.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Quiz.Models;
+using OfficeOpenXml;
 
 namespace Quiz.Controllers
 {
@@ -128,7 +129,7 @@ namespace Quiz.Controllers
         #endregion user save
 
 
-      
+
         //public IActionResult Login(UserLoginModel model)
         //{
         //    try
@@ -201,6 +202,55 @@ namespace Quiz.Controllers
         //    HttpContext.Session.Clear();
         //    return RedirectToAction("SignIn", "Login");
         //}
+        public IActionResult ExportToExcel()
+        {
+            string connectionString = configuration.GetConnectionString("ConnectionString");
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            sqlConnection.Open();
+
+            SqlCommand sqlCommand = sqlConnection.CreateCommand();
+            sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            sqlCommand.CommandText = "PR_MST_User_SelectAll";
+            //sqlCommand.Parameters.Add("@CityID", SqlDbType.Int).Value = CommonVariable.CityID();
+
+            SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+            DataTable data = new DataTable();
+            data.Load(sqlDataReader);
+
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add("DataSheet");
+
+
+                // Add headers
+                worksheet.Cells[1, 1].Value = "UserID";
+                worksheet.Cells[1, 2].Value = "UserName";
+                //worksheet.Cells[1, 3].Value = "created";
+                worksheet.Cells[1, 4].Value = "Email";
+
+
+                // Add data
+                int row = 2;
+                foreach (DataRow item in data.Rows)
+                {
+                    worksheet.Cells[row, 1].Value = item["UserID"];
+                    worksheet.Cells[row, 2].Value = item["UserName"];
+                    //worksheet.Cells[row, 3].Value = Convert.ToDateTime(item["created"]);
+                    worksheet.Cells[row, 4].Value = item["Email"];
+
+
+
+                    row++;
+                }
+
+                var stream = new MemoryStream();
+                package.SaveAs(stream);
+                stream.Position = 0;
+
+                string excelName = $"Data-{DateTime.Now:yyyyMMddHHmmss}.xlsx";
+                return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
+            }
+        }
     }
 }
    

@@ -31,11 +31,18 @@
                         <span asp-validation-for="TotalQuestions" class="text-danger"></span>
                     </div>
 
-                    <!-- Country Code (Not Null) -->
+                   @*  <!-- Country Code (Not Null) -->
                     <div class="form-group">
                         <span class="text-danger">*</span>
                         <label asp-for="QuizDate" class="form-label">QuizDate</label>
                         <input asp-for="QuizDate" class="form-control" />
+                        <span asp-validation-for="QuizDate" class="text-danger"></span>
+                    </div>
+ *@
+                    <div class="mb-4">
+                        <label asp-for="QuizDate" class="form-label">Quiz Date</label>
+                        <input type="date" asp-for="QuizDate" class="form-control"
+                               value="@(Model.QuizDate == default ? DateTime.Now.ToString("yyyy-MM-dd") : Model.QuizDate.ToString("yyyy-MM-dd"))" />
                         <span asp-validation-for="QuizDate" class="text-danger"></span>
                     </div>
 
@@ -63,7 +70,7 @@
 
                     <div class="mt-4">
                         <button type="submit" class="btn btn-success me-2">Save</button>
-                        <button type="button" class="btn btn-danger">Reset</button>
+@*                         <button type="button" class="btn btn-danger">Reset</button> *@
                         <a class="btn btn-warning ms-1" asp-area="" asp-controller="Quiz" asp-action="QuizList">
                             Back
                         </a>

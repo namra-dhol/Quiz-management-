@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
 using Microsoft.AspNetCore.Mvc;
+using OfficeOpenXml;
 using Quiz.Models;
 
 namespace Quiz.Controllers
@@ -189,6 +190,62 @@ namespace Quiz.Controllers
             ViewBag.User = list;
         }
         #endregion User Dropdown
-    
+
+
+        public IActionResult ExportToExcel()
+        {
+            string connectionString = configuration.GetConnectionString("ConnectionString");
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            sqlConnection.Open();
+
+            SqlCommand sqlCommand = sqlConnection.CreateCommand();
+            sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            sqlCommand.CommandText = "PR_MST_Question_SelectAll";
+            //sqlCommand.Parameters.Add("@CityID", SqlDbType.Int).Value = CommonVariable.CityID();
+
+            SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+            DataTable data = new DataTable();
+            data.Load(sqlDataReader);
+
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add("DataSheet");
+
+                // Add headers
+                worksheet.Cells[1, 1].Value = "QuestionText";
+                worksheet.Cells[1, 2].Value = "OptionA";
+                worksheet.Cells[1, 3].Value = "OptionB";
+                worksheet.Cells[1, 4].Value = "OptionC";
+                worksheet.Cells[1, 5].Value = "OptionD";
+                worksheet.Cells[1, 6].Value = "QuestionLevel";
+                worksheet.Cells[1, 7].Value = "CorrectOption";
+
+                // Add data
+                int row = 2;
+                foreach (DataRow item in data.Rows)
+                {
+                    worksheet.Cells[row, 1].Value = item["QuestionText"];
+                    worksheet.Cells[row, 2].Value = item["OptionA"];
+                    worksheet.Cells[row, 3].Value = item["OptionB"];
+                    worksheet.Cells[row, 4].Value = item["OptionC"];
+
+                    worksheet.Cells[row, 5].Value = item["OptionD"];
+                    worksheet.Cells[row, 6].Value = item["QuestionLevel"];
+
+                    worksheet.Cells[row, 7].Value = item["CorrectOption"];
+
+
+                    row++;
+                }
+
+                var stream = new MemoryStream();
+                package.SaveAs(stream);
+                stream.Position = 0;
+
+                string excelName = $"Data-{DateTime.Now:yyyyMMddHHmmss}.xlsx";
+                return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
+            }
+        }
+
     }
 }

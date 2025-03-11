@@ -31,7 +31,11 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex justify-content-end align-items-center my-3">
+                   
                     <a class="btn btn-primary btn-sm px-4 py-2 mx-3" asp-area="" asp-controller="Quiz" asp-action="AddQuiz">+ Add Quiz</a>
+                    <a asp-controller="Quiz" asp-action="ExportToExcel" class="btn btn-primary btn-sm px-4 py-2 mx-3">
+                        Export to Excel
+                    </a>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-striped table-hover datatable">
@@ -56,7 +60,7 @@
                                     <td>@row["UserID"]</td>
                                     <td>@row["modified"]</td>
                                     <td>
-                                        <a class="btn btn-sm btn-outline-primary me-1" asp-controller="Quiz" asp-action="AddEditQuiz" asp-route-QuizID="@row["QuizID"]">Edit</a>
+                                        <a class="btn btn-sm btn-outline-primary me-1" asp-controller="Quiz" asp-action="AddQuiz" asp-route-QuizID="@row["QuizID"]">Edit</a>
                                         <a asp-controller="Quiz" asp-action="QuizDelete" asp-route-QuizID="@row["QuizID"]" class="btn btn-outline-danger btn-xs"
                                            onclick="return confirm('Are you sure you want to delete this Quiz?');">
                                             delete 

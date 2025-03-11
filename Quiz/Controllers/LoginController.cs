@@ -60,11 +60,11 @@ namespace Quiz.Controllers
                             {
                                 DataRow dr = dataTable.Rows[0];
 
-                                // Store user details in session
+                               
                                 HttpContext.Session.SetString("UserID", dr["UserID"].ToString());
                                 HttpContext.Session.SetString("Username", dr["Username"].ToString());
 
-                                // ✅ Redirect to HomeController → Index (Dashboard)
+                             
                                 return RedirectToAction("Index","Home");
 
                             }
@@ -79,8 +79,7 @@ namespace Quiz.Controllers
             }
             catch (Exception e)
             {
-                //_logger.LogError(e, "Error occurred during user login. Exception: {Message}, StackTrace: {StackTrace}", e.Message, e.StackTrace);
-
+                
                 TempData["ErrorMessage"] = "An error occurred. Please try again later.";
             }
             return RedirectToAction("SignIn");

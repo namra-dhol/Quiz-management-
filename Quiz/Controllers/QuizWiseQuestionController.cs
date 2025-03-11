@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
 using Microsoft.AspNetCore.Mvc;
+using OfficeOpenXml;
 using Quiz.Models;
 
 namespace Quiz.Controllers
@@ -183,6 +184,55 @@ namespace Quiz.Controllers
             ViewBag.User = list;
         }
         #endregion User_Dropdown
+
+        public IActionResult ExportToExcel()
+        {
+            string connectionString = configuration.GetConnectionString("ConnectionString");
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            sqlConnection.Open();
+
+            SqlCommand sqlCommand = sqlConnection.CreateCommand();
+            sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            sqlCommand.CommandText = "PR_MST_QuizWiseQuestions_SelectAll";
+            //sqlCommand.Parameters.Add("@CityID", SqlDbType.Int).Value = CommonVariable.CityID();
+
+            SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+            DataTable data = new DataTable();
+            data.Load(sqlDataReader);
+
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add("DataSheet");
+
+
+                // Add headers
+                worksheet.Cells[1, 1].Value = "QuizWiseQuestionsID";
+                worksheet.Cells[1, 2].Value = "QuizName";
+                //worksheet.Cells[1, 3].Value = "created";
+
+
+                // Add data
+                int row = 2;
+                foreach (DataRow item in data.Rows)
+                {
+                    worksheet.Cells[row, 1].Value = item["QuizWiseQuestionsID"];
+                    worksheet.Cells[row, 2].Value = item["QuizName"];
+                    //worksheet.Cells[row, 3].Value = Convert.ToDateTime(item["created"]);
+
+
+
+                    row++;
+                }
+
+                var stream = new MemoryStream();
+                package.SaveAs(stream);
+                stream.Position = 0;
+
+                string excelName = $"Data-{DateTime.Now:yyyyMMddHHmmss}.xlsx";
+                return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
+            }
+        }
+
 
     }
 }

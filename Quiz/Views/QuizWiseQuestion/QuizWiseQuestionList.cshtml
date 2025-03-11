@@ -32,11 +32,13 @@
             <div class="card-body">
                 <div class="d-flex justify-content-end align-items-center my-3">
                     <a class="btn btn-primary btn-sm px-4 py-2 mx-3" asp-area="" asp-controller="QuizWiseQuestion" asp-action="AddQuizWiseQuestion">+ Add QuizWiseQuestion</a>
-                    <input class="form-control w-auto me-3" type="search" placeholder="Search..." aria-label="Search">
+                    <a asp-controller="QuizWiseQuestion" asp-action="ExportToExcel" class="btn btn-primary btn-sm px-4 py-2 mx-3">
+                        Export to Excel
+                    </a>
                 </div>
 
                 <div class="table-responsive">
-                    <table class="table table-striped table-hover">
+                    <table class="table table-striped table-hover datatable">
                         <thead>
                             <tr>
                                 <th>QuizWiseQuestions ID</th>
