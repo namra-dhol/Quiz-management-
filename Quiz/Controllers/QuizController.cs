@@ -192,5 +192,27 @@ namespace Quiz.Controllers
                 return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
             }
         }
+
+        public IActionResult QuizFilter(IFormCollection fc)
+        {
+            //CountryDropDown();
+            //StateDropDown(null);
+
+            string connectionString = this.configuration.GetConnectionString("ConnectionString");
+            SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+            SqlCommand command = connection.CreateCommand();
+            command.CommandType = System.Data.CommandType.StoredProcedure;
+            command.CommandText = "PR_MST_Quiz_Search";
+            //command.Parameters.Add("@UserID", SqlDbType.Int).Value = CommonVariable.UserID();
+            command.Parameters.Add("@QuizName", SqlDbType.VarChar).Value = fc["QuizName"].ToString();
+            //command.Parameters.Add("@CityCode", SqlDbType.VarChar).Value = fc["CityCode"].ToString();
+
+            SqlDataReader reader = command.ExecuteReader();
+            DataTable dataTable = new DataTable();
+            dataTable.Load(reader);
+            return View("QuizList", dataTable);
+        }
+
     }
 }

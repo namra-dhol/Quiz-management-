@@ -10,22 +10,35 @@
         <div class="card mb-4">
             <div class="card-body">
                 <h5 class="card-title mb-3">Search</h5>
-                <form>
+               <form method="post">
                     <div class="row g-3">
-                        <div class="col-md-6">
-                            <input type="text" class="form-control" placeholder="Enter Quiz Name">
-                        </div>
+                    <div class="form-group col-md-2">
+                        <input type="text" id="searchBox" name="QuizName" class="form-control" placeholder="Quiz Name...">
+                    </div>
                         <div class="col-md-6">
                             <input type="date" class="form-control" placeholder="Enter Quiz Date">
                         </div>
                         <div class="col-12">
-                            <button type="submit" class="btn btn-success me-2">Search</button>
-                            <button type="reset" class="btn btn-secondary">Reset</button>
+                           <input type="submit" asp-action="QuizFilter" asp-controller="Quiz" id="searchBox" class="btn btn-success" value="submit">
+                            <input type="reset" class="btn btn-secondary" value="Reset">
                         </div>
                     </div>
                 </form>
             </div>
         </div>
+    <!--Filter Start -->
+@*     <div class="table-toolbar">
+        <form method="post">
+           
+            <div class="form-group col-md-2">
+                <input type="text" id="searchBox" name="QuizName" class="form-control" placeholder="Quiz Name...">
+            </div>
+            <div class="form-group col-md-2">
+                <input type="submit" asp-action="QuizFilter" asp-controller="Quiz" id="searchBox" class="btn btn-success form-control" value="submit">
+            </div>
+        </form>
+    </div> *@
+    <!--Filter End-->
 
         <!-- Table Section -->
         <div class="card">
