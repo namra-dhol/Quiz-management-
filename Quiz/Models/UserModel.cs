@@ -14,9 +14,9 @@ namespace Quiz.Models
         public string Email { get; set; }
         [Required] 
         public string Mobile { get; set; }
-        [Required]
+     
         public bool IsActive { get; set; }
-        [Required]
+
         public bool IsAdmin { get; set; }
       
         [Required]

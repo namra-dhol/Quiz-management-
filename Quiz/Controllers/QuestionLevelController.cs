@@ -78,15 +78,26 @@ namespace Quiz.Controllers
         }
         public IActionResult DeleteQuestionLevel(int QuestionLevelID)
         {
-            string connectionString = this.configuration.GetConnectionString("ConnectionString");
-            SqlConnection sqlConnection = new SqlConnection(connectionString);
-            sqlConnection.Open();
-            SqlCommand sqlCommand = sqlConnection.CreateCommand();
-            sqlCommand.CommandType = CommandType.StoredProcedure;
-            sqlCommand.CommandText = "[dbo].[PR_MST_QuestionLevel_Delete]";
-            sqlCommand.Parameters.Add("@QuestionLevelID", SqlDbType.Int).Value = QuestionLevelID;
-            sqlCommand.ExecuteNonQuery();
-            return RedirectToAction("QuestionLevelList");
+            try
+            {
+                string connectionString = this.configuration.GetConnectionString("ConnectionString");
+                SqlConnection sqlConnection = new SqlConnection(connectionString);
+                sqlConnection.Open();
+                SqlCommand sqlCommand = sqlConnection.CreateCommand();
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlCommand.CommandText = "[dbo].[PR_MST_QuestionLevel_Delete]";
+                sqlCommand.Parameters.Add("@QuestionLevelID", SqlDbType.Int).Value = QuestionLevelID;
+                sqlCommand.ExecuteNonQuery();
+
+
+                TempData["SuccessMessage"] = "table QuizList deleted successfully.";
+                return RedirectToAction("QuestionLevelList");
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "An error occurred while deleting the Quiz: " + ex.Message;
+                return RedirectToAction("QuestionLevelList");
+            }
         }
 
         #region User_Dropdown
@@ -115,49 +126,60 @@ namespace Quiz.Controllers
 
         public IActionResult ExportToExcel()
         {
-            string connectionString = configuration.GetConnectionString("ConnectionString");
-            SqlConnection sqlConnection = new SqlConnection(connectionString);
-            sqlConnection.Open();
-
-            SqlCommand sqlCommand = sqlConnection.CreateCommand();
-            sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            sqlCommand.CommandText = "PR_MST_QuestionLevel_SelectAll";
-            //sqlCommand.Parameters.Add("@CityID", SqlDbType.Int).Value = CommonVariable.CityID();
-
-            SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
-            DataTable data = new DataTable();
-            data.Load(sqlDataReader);
-
-            using (var package = new ExcelPackage())
+            try
             {
-                var worksheet = package.Workbook.Worksheets.Add("DataSheet");
+                string connectionString = configuration.GetConnectionString("ConnectionString");
+                SqlConnection sqlConnection = new SqlConnection(connectionString);
+                sqlConnection.Open();
 
-                // Add headers
-                worksheet.Cells[1, 1].Value = "QuestionLevelID";
-                worksheet.Cells[1, 2].Value = "Questionlevel";
-                //worksheet.Cells[1, 3].Value = "created";
+                SqlCommand sqlCommand = sqlConnection.CreateCommand();
+                sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                sqlCommand.CommandText = "PR_MST_QuestionLevel_SelectAll";
 
+                SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                DataTable data = new DataTable();
+                data.Load(sqlDataReader);
 
-                // Add data
-                int row = 2;
-                foreach (DataRow item in data.Rows)
+                using (var package = new ExcelPackage())
                 {
-                    worksheet.Cells[row, 1].Value = item["QuestionLevelID"];
-                    worksheet.Cells[row, 2].Value = item["Questionlevel"];
-                    //worksheet.Cells[row, 3].Value = Convert.ToDateTime(item["created"]);
+                    var worksheet = package.Workbook.Worksheets.Add("QuestionLevels");
 
+                    // Add headers
+                    worksheet.Cells[1, 1].Value = "QuestionLevelID";
+                    worksheet.Cells[1, 2].Value = "QuestionLevel";
+                    worksheet.Cells[1, 3].Value = "UserName";
+                    worksheet.Cells[1, 4].Value = "UserID";
+                    worksheet.Cells[1, 5].Value = "Created";
+                    worksheet.Cells[1, 6].Value = "Modified";
 
+                    // Add data
+                    int row = 2;
+                    foreach (DataRow item in data.Rows)
+                    {
+                        worksheet.Cells[row, 1].Value = item["QuestionLevelID"];
+                        worksheet.Cells[row, 2].Value = item["QuestionLevel"];
+                        worksheet.Cells[row, 3].Value = item["UserName"];
+                        worksheet.Cells[row, 4].Value = item["UserID"];
+                        worksheet.Cells[row, 5].Value = Convert.ToDateTime(item["Created"]).ToString("yyyy-MM-dd HH:mm:ss");
+                        worksheet.Cells[row, 6].Value = Convert.ToDateTime(item["Modified"]).ToString("yyyy-MM-dd HH:mm:ss");
 
-                    row++;
+                        row++;
+                    }
+
+                    var stream = new MemoryStream();
+                    package.SaveAs(stream);
+                    stream.Position = 0;
+
+                    string excelName = $"QuestionLevels-{DateTime.Now:yyyyMMddHHmmss}.xlsx";
+                    return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
                 }
-
-                var stream = new MemoryStream();
-                package.SaveAs(stream);
-                stream.Position = 0;
-
-                string excelName = $"Data-{DateTime.Now:yyyyMMddHHmmss}.xlsx";
-                return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "An error occurred while exporting data: " + ex.Message;
+                return RedirectToAction("QuestionLevelList");
             }
         }
+
     }
 }

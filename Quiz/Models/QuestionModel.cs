@@ -34,7 +34,7 @@ namespace Quiz.Models
         [Required(ErrorMessage = "Question Level is required")]
         public int QuestionLevelID { get; set; }
 
-        [Required]
+       
         public bool IsActive {  get; set; }
     }
     public class QuestionDropdownModel

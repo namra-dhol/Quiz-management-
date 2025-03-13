@@ -61,6 +61,7 @@ namespace Quiz.Controllers
             {
                 QuizDropDown();
                 QuestionDropDown();
+                UserDropDown();
                 return View("AddQuizWiseQuestion", model);
             }
         }
@@ -102,17 +103,26 @@ namespace Quiz.Controllers
         #region Quiz Wise Question Delete
         public IActionResult QuizWiseQuestionDelete(int QuizWiseQuestionsID)
         {
-            string connectionString = configuration.GetConnectionString("ConnectionString");
-            SqlConnection connection = new SqlConnection(connectionString);
-            connection.Open();
-            SqlCommand command = connection.CreateCommand();
-            command.CommandType = CommandType.StoredProcedure;
-            command.CommandText = "PR_MST_QuizWiseQuestions_Delete";
-            command.Parameters.AddWithValue("@QuizWiseQuestionsID", QuizWiseQuestionsID);
-            command.ExecuteNonQuery();
-            return RedirectToAction("QuizWiseQuestionList");
+            try
+            {
+                string connectionString = configuration.GetConnectionString("ConnectionString");
+                SqlConnection connection = new SqlConnection(connectionString);
+                connection.Open();
+                SqlCommand command = connection.CreateCommand();
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "PR_MST_QuizWiseQuestions_Delete";
+                command.Parameters.AddWithValue("@QuizWiseQuestionsID", QuizWiseQuestionsID);
+                command.ExecuteNonQuery();
+
+                return RedirectToAction("QuizWiseQuestionList");
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "An error occurred while deleting the Quiz Wise Question: " + ex.Message;
+                return RedirectToAction("QuizWiseQuestionList");
+            }
         }
-        #endregion 
+        #endregion
 
         #region Question DropDown
         public void QuestionDropDown()
@@ -187,51 +197,67 @@ namespace Quiz.Controllers
 
         public IActionResult ExportToExcel()
         {
-            string connectionString = configuration.GetConnectionString("ConnectionString");
-            SqlConnection sqlConnection = new SqlConnection(connectionString);
-            sqlConnection.Open();
-
-            SqlCommand sqlCommand = sqlConnection.CreateCommand();
-            sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            sqlCommand.CommandText = "PR_MST_QuizWiseQuestions_SelectAll";
-            //sqlCommand.Parameters.Add("@CityID", SqlDbType.Int).Value = CommonVariable.CityID();
-
-            SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
-            DataTable data = new DataTable();
-            data.Load(sqlDataReader);
-
-            using (var package = new ExcelPackage())
+            try
             {
-                var worksheet = package.Workbook.Worksheets.Add("DataSheet");
+                string connectionString = configuration.GetConnectionString("ConnectionString");
+                SqlConnection sqlConnection = new SqlConnection(connectionString);
+                sqlConnection.Open();
 
+                SqlCommand sqlCommand = sqlConnection.CreateCommand();
+                sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                sqlCommand.CommandText = "PR_MST_QuizWiseQuestions_SelectAll";
 
-                // Add headers
-                worksheet.Cells[1, 1].Value = "QuizWiseQuestionsID";
-                worksheet.Cells[1, 2].Value = "QuizName";
-                //worksheet.Cells[1, 3].Value = "created";
+                SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                DataTable data = new DataTable();
+                data.Load(sqlDataReader);
 
-
-                // Add data
-                int row = 2;
-                foreach (DataRow item in data.Rows)
+                using (var package = new ExcelPackage())
                 {
-                    worksheet.Cells[row, 1].Value = item["QuizWiseQuestionsID"];
-                    worksheet.Cells[row, 2].Value = item["QuizName"];
-                    //worksheet.Cells[row, 3].Value = Convert.ToDateTime(item["created"]);
+                    var worksheet = package.Workbook.Worksheets.Add("QuizWiseQuestions");
 
+                    // Add headers
+                    worksheet.Cells[1, 1].Value = "QuizWiseQuestionsID";
+                    worksheet.Cells[1, 2].Value = "QuizID";
+                    worksheet.Cells[1, 3].Value = "QuizName";
+                    worksheet.Cells[1, 4].Value = "QuestionID";
+                    worksheet.Cells[1, 5].Value = "QuestionText";
+                    worksheet.Cells[1, 6].Value = "UserID";
+                    worksheet.Cells[1, 7].Value = "UserName";
+                    worksheet.Cells[1, 8].Value = "Created";
+                    worksheet.Cells[1, 9].Value = "Modified";
 
+                    // Add data
+                    int row = 2;
+                    foreach (DataRow item in data.Rows)
+                    {
+                        worksheet.Cells[row, 1].Value = item["QuizWiseQuestionsID"];
+                        worksheet.Cells[row, 2].Value = item["QuizID"];
+                        worksheet.Cells[row, 3].Value = item["QuizName"];
+                        worksheet.Cells[row, 4].Value = item["QuestionID"];
+                        worksheet.Cells[row, 5].Value = item["QuestionText"];
+                        worksheet.Cells[row, 6].Value = item["UserID"];
+                        worksheet.Cells[row, 7].Value = item["UserName"];
+                        worksheet.Cells[row, 8].Value = Convert.ToDateTime(item["Created"]).ToString("yyyy-MM-dd HH:mm:ss");
+                        worksheet.Cells[row, 9].Value = Convert.ToDateTime(item["Modified"]).ToString("yyyy-MM-dd HH:mm:ss");
 
-                    row++;
+                        row++;
+                    }
+
+                    var stream = new MemoryStream();
+                    package.SaveAs(stream);
+                    stream.Position = 0;
+
+                    string excelName = $"QuizWiseQuestions-{DateTime.Now:yyyyMMddHHmmss}.xlsx";
+                    return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
                 }
-
-                var stream = new MemoryStream();
-                package.SaveAs(stream);
-                stream.Position = 0;
-
-                string excelName = $"Data-{DateTime.Now:yyyyMMddHHmmss}.xlsx";
-                return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "An error occurred while exporting data: " + ex.Message;
+                return RedirectToAction("QuizWiseQuestionsList");
             }
         }
+
 
 
     }

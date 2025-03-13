@@ -73,11 +73,13 @@
                                     <td>@row["modified"]</td>
                                   @*   <td>@row["questionMarks"]</td> *@
                                     <td>
-                                        <a class="btn btn-sm btn-outline-primary me-1" asp-controller="Question" asp-action="AddQuestion" asp-route-QuestionID="@row["QuestionID"]">Edit</a>
+                                        <a class="btn btn-sm btn-outline-primary me-1 mt-1" asp-controller="Question" asp-action="AddQuestion" asp-route-QuestionID="@row["QuestionID"]">
+                                            <i class="bi bi-pencil">  Edit </i>
+                                        </a>
 
-                                        <a asp-controller="Question" asp-action="QuestionDelete" asp-route-QuestionID="@row["QuestionID"]" class="btn btn-outline-danger btn-xs"
+                                        <a asp-controller="Question" asp-action="QuestionDelete" asp-route-QuestionID="@row["QuestionID"]" class="btn btn-outline-danger btn-xs mt-1"
                                            onclick="return confirm('Are you sure you want to delete this QuestionList?');">
-                                            delete
+                                            <i class=" bi bi-trash3">  delete </i>
                                         </a>
 
                                     </td>

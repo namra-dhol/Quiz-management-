@@ -68,13 +68,13 @@
                         <label asp-for="CorrectOption" class="form-label">Correct Option</label>
                         <select asp-for="CorrectOption" class="form-select" id="correctOption">
                             <option value="">Select Correct Option</option>
-                            <option asp-for="OptionA">Option A</option>
-                            <option asp-for="OptionB">Option B</option>
-                            <option asp-for="OptionD">Option C</option>
-                            <option asp-for="OptionD">Option D</option>
+                            <option asp-for="OptionA"> A</option>
+                            <option asp-for="OptionB"> B</option>
+                            <option asp-for="OptionD"> C</option>
+                            <option asp-for="OptionD">= D</option>
                         </select>
                         <span asp-validation-for="CorrectOption" class="text-danger"></span>
-                    </div>
+                    </div>\\
 
                     <div class="mb-3">
                         <span class="text-danger">*</span>
@@ -96,12 +96,12 @@
                         <span asp-validation-for="UserID" class="text text-danger"></span>
                     </div>
 
-                    <div class="mb-3">
+                @*     <div class="mb-3">
                         <span class="text-danger">*</span>
                         <input asp-for="IsActive" class="form-check-input">
                         <label class="form-label">Is Active</label>
                         <span asp-validation-for="IsActive" class="text text-danger"></span>
-                    </div>
+                    </div> *@
 
                     <button type="submit" class="btn btn-success me-2">Save</button>
                @*      <button type="button" class="btn btn-danger">Reset</button> *@

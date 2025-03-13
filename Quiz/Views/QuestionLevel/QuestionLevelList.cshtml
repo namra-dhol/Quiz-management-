@@ -1,6 +1,7 @@
 ﻿@model DataTable
 @using System.Data
 <main id="main" class="main">
+    <span class="text-danger">@TempData["ErrorMessage"]</span>
     <div class="container-fluid">
         <h2 style="color:steelblue" class="card-title fs-2">Question Level List</h2>
         <!-- Search Section -->
@@ -60,7 +61,7 @@
                                         <td>@row["Modified"]</td>
                                         <td>
                                             <a style="width:100px" class="btn btn-sm btn-outline-primary me-1 mt-1" asp-controller="QuestionLevel" asp-action="AddEditQuestionLevel" asp-route-QuestionLevelID="@row["QuestionLevelID"]">
-                                                <i class="bi bi-pencil"></i> Edit
+                                                <i class="bi bi-pencil"> Edit </i>
                                             </a>
                                             <form method="post" asp-controller="QuestionLevel" asp-action="DeleteQuestionLevel" onsubmit="return confirmDelete()">
                                                 <input type="hidden" name="QuestionLevelID" value="@row["QuestionLevelID"]" />

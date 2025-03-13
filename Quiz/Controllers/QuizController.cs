@@ -173,6 +173,8 @@ namespace Quiz.Controllers
                 worksheet.Cells[1, 1].Value = "QuizId";
                 worksheet.Cells[1, 2].Value = "QuizName";
                 worksheet.Cells[1, 3].Value = "TotalQuestions";
+                worksheet.Cells[1, 4].Value = "created";
+                worksheet.Cells[1, 5].Value = "modified";
 
                 // Add data
                 int row = 2;
@@ -181,6 +183,8 @@ namespace Quiz.Controllers
                     worksheet.Cells[row, 1].Value = item["QuizId"];
                     worksheet.Cells[row, 2].Value = item["QuizName"];
                     worksheet.Cells[row, 3].Value = item["TotalQuestions"];
+                    worksheet.Cells[row, 4].Value = Convert.ToDateTime(item["Created"]).ToString("yyyy-MM-dd HH:mm:ss");
+                    worksheet.Cells[row, 5].Value = Convert.ToDateTime(item["Modified"]).ToString("yyyy-MM-dd HH:mm:ss");
                     row++;
                 }
 
@@ -188,7 +192,7 @@ namespace Quiz.Controllers
                 package.SaveAs(stream);
                 stream.Position = 0;
 
-                string excelName = $"Data-{DateTime.Now:yyyyMMddHHmmss}.xlsx";
+                string excelName = $"QuizData-{DateTime.Now:yyyyMMddHHmmss}.xlsx";
                 return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
             }
         }
