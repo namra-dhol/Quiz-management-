@@ -28,7 +28,7 @@ Follow these steps to set up and run the project locally.
 1. Clone the repository and navigate to the project directory:
 
    ```markdown
-   git clone https://github.com/namra-dhol/QuizManagementSystem.git
+   git clone https://github.com/namra-dhol/Quiz-management-
    cd Quiz
    ```
 
