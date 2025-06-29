@@ -28,6 +28,18 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="EmployeeList">EmployeeList</a>
                         </li>
+                       @*  <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Message" asp-action="MessageDemo">Message</a>
+                        </li>
+                        *@
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="mail" asp-action="index">message</a>
+                        </li> 
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="EmailSender" asp-action="EmailForm">Emails</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -43,6 +55,12 @@
         <div class="container">
             &copy; 2025 - DemoTest - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
+        <div>
+            <button onclick="openPdf()">View Full Page PDF</button>
+
+
+
+        </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -50,3 +68,12 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+<script>
+    function showPdf() {
+        document.getElementById("pdfViewer").innerHTML = '<embed src="AtmiyaBrocer.pdf" type="application/pdf" width="100%" height="600px" />';
+    }
+
+       function openPdf() {
+        window.location.href = 'AtmiyaBrocer.pdf';
+    }
+</script>

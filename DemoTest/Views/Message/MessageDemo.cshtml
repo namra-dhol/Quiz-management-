@@ -1,0 +1,28 @@
+﻿@model DemoTest.Models.MessageModel
+
+@using (Html.BeginForm("SendMessage", "Message", FormMethod.Post))
+{
+    <div>
+        <label>Name:</label>
+        @Html.TextBoxFor(m => m.Name)
+    </div>
+
+    <div>
+        <label>Email:</label>
+        @Html.TextBoxFor(m => m.Email)
+    </div>
+
+    <div>
+        <label>Phone:</label>
+        @Html.TextBoxFor(m => m.Phone)
+    </div>
+
+    <div>
+        <label>Message:</label>
+        @Html.TextAreaFor(m => m.MessageContent)
+    </div>
+
+    <div>
+        <input type="submit" value="Send" />
+    </div>
+}

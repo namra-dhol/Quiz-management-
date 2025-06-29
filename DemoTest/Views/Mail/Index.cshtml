@@ -1,0 +1,20 @@
+﻿@model DemoTest.Models.MailRequest
+
+<h2>Send Email to Yourself</h2>
+
+<form asp-action="Send" method="post">
+    <div>
+        <label>Subject</label>
+        <input type="text" name="Subject" required />
+    </div>
+    <div>
+        <label>Message</label>
+        <textarea name="Body" required></textarea>
+    </div>
+    <button type="submit">Send</button>
+</form>
+
+@if (ViewBag.Message != null)
+{
+    <p style="color: green">@ViewBag.Message</p>
+}

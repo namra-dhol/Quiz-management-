@@ -275,6 +275,11 @@
                 <i class="bi bi-grid"></i>
                 <span>Dashboard</span>
             </a>
+            <ul>
+                <a asp-area="" asp-controller="Home" asp-action="Privacy">
+                    <i class="bi bi-circle"></i><span>QuestionLevelCount</span>
+                </a>
+            </ul>
 
           @*   <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#User-nav" data-bs-toggle="collapse" href="#">
@@ -299,6 +304,7 @@
                     <i class="bi bi-menu-button-wide"></i><span>Quiz</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="Quiz-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                   
                     <li>
                         <a asp-area="" asp-controller="Quiz" asp-action="QuizList">
                             <i class="bi bi-circle"></i><span>Quiz List</span>

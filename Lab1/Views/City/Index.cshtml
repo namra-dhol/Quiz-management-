@@ -1,0 +1,78 @@
+﻿@using System.Data
+@{
+    ViewData["Title"] = "City List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>City</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a asp-controller="HomeMaster" asp-action="Index">
+                        <i class="fa fa-home"></i>
+                    </a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">City List</li>
+            </ol>
+        </nav>
+        <div class="d-flex justify-content-end align-items-center">
+            <a class="btn btn-outline-primary" asp-controller="City" asp-action="CityAddEdit">
+                <i class="bi bi-plus-lg"></i>&nbsp;Add City
+            </a>
+        </div>
+    </div><!-- End Page Title -->
+    @if (TempData["CityInsertMsg"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["CityInsertMsg"]
+        </div>
+    }
+
+    <div class="mb-3">
+        <input type="text" class="form-control" id="citySearch" placeholder="Search Any">
+    </div>
+
+    <table class="table table-hover table-header-fixed">
+        <thead>
+            <tr>
+                <th scope="col">City Name</th>
+                <th scope="col">State Name</th>
+                <th scope="col">Country Name</th>
+                <th class="text-center">Actions</th>
+            </tr>
+        </thead>
+        <tbody id="cityTable">
+            @foreach (DataRow row in Model.Rows)
+            {
+                <tr>
+                    <td>@row["CityName"]</td>
+                    <td>@row["StateName"]</td>
+                    <td>@row["CountryName"]</td>
+                    <td class="text-center">
+                        <a class="btn btn-outline-success btn-xs" asp-controller="City" asp-action="CityAddEdit" asp-route-CityID="@row["CityID"]">
+                            <i class="bi bi-pencil-fill"></i>
+                        </a>
+                        <a class="btn btn-outline-danger btn-xs" asp-controller="City" asp-action="Delete" asp-route-CityID="@row["CityID"]" onclick="return confirm('Are you sure you want to delete this city?');">
+                            <i class="bi bi-x"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</main>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#citySearch").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#cityTable tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                });
+            });
+        });
+    </script>
+}

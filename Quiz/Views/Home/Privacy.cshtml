@@ -1,8 +1,19 @@
-﻿<main id="main" class="main">
-    <div class="container-fluid" style="height:250px">
-        <cute name1="~/assets/img/card.jpg" text="Example Image" />
-        <cute name1="~/assets/img/card.jpg" text="Example Image" />
+﻿@using System.Data;
+
+<main class="main" id="main">
+    <div class="row g-4">
+        @foreach (DataRow row in Model.Rows)
+        {
+            <div class="col-md-4 col-sm-6">
+                <a asp-controller="Home" asp-action="GetLevelWiseQuestion" asp-route-QuestionLevelID="@row["QuestionLevelID"]" class="text-decoration-none">
+                    <div class="card text-center shadow-sm h-100 border-0">
+                        <div class="card-body">
+                            <h2 class="card-title text-primary fw-bold">@row["QuestionCount"]</h2>
+                            <p class="card-text text-dark fw-semibold">@row["QuestionLevel"]</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
     </div>
-    <h1>hello</h1>
-    <img src="~/assets/img/card.jpg" />
 </main>
